@@ -40,6 +40,7 @@ module.exports = {
     "no-unused-vars": 1,
     "no-undef": 1,
     "no-console": "off",
-    'nuxt/no-cjs-in-config': 'off'
+    'nuxt/no-cjs-in-config': 'off',
+    'vue/singleline-html-element-content-newline': 'off'
   }
 }

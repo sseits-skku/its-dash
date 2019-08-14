@@ -66,6 +66,15 @@ module.exports = {
     theme: {
       dark: true,
       themes: {
+        light: {
+          primary: colors.blue.lighten2,
+          accent: colors.grey.base,
+          secondary: colors.amber.lighten1,
+          info: colors.teal.lighten4,
+          warning: colors.amber.lighten2,
+          error: colors.deepOrange.accent2,
+          success: colors.green.accent2
+        },
         dark: {
           primary: colors.blue.darken2,
           accent: colors.grey.darken3,
@@ -94,8 +103,10 @@ module.exports = {
         '@babel/transform-runtime'
       ]
     },
+    cache: true,
     extend (config, ctx) {
     },
+    parallel: true,
     plugins: [
       new webpack.DefinePlugin({
         'process.VERSION': require('./package.json').version

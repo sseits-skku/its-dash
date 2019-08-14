@@ -44,7 +44,10 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn color="primary">Login</v-btn>
+                <v-btn
+                  color="primary"
+                  @click="help()"
+                >Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -62,6 +65,9 @@ export default {
   data: () => ({
     id: '',
     pw: ''
-  })
+  }),
+  methods: {
+    tryLogin () {}
+  }
 }
 </script>

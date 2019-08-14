@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app dark>
     <nuxt />
   </v-app>
 </template>
@@ -8,7 +8,7 @@
 export default {
   head () {
     return {
-      title: 'SSE-ITS Website'
+      title: 'ITS MEMBER-ZONE'
     }
   },
   data () {

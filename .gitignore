@@ -91,3 +91,5 @@ sw.*
 *.swp
 
 yarn.lock
+
+secret.config.js
