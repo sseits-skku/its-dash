@@ -1,15 +1,9 @@
 <template>
-  <Toolbar />
+  <div />
 </template>
 
 <script>
-import Toolbar from '@/components/Toolbar'
 export default {
-  layout () {
-    return this.$store.state.logon ? 'default' : 'memberzone'
-  },
-  components: {
-    Toolbar
-  }
+  layout: 'default'
 }
 </script>

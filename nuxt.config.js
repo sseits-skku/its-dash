@@ -1,4 +1,3 @@
-const colors = require('vuetify/es5/util/colors').default
 const webpack = require('webpack')
 
 module.exports = {
@@ -45,8 +44,8 @@ module.exports = {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/axios'/*,
+    '@nuxtjs/pwa' */
   ],
   /*
   ** Axios module configuration
@@ -57,14 +56,22 @@ module.exports = {
   },
   proxy: {
   },
+  vue: {
+    config: {
+      productionTip: false,
+      devtools: true
+    }
+  },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
   */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    defaultAssets: {
+      font: false,
+      icons: 'mdi'
+    }/*,
     theme: {
-      dark: true,
       themes: {
         light: {
           primary: colors.blue.lighten2,
@@ -85,7 +92,7 @@ module.exports = {
           success: colors.green.accent3
         }
       }
-    }
+    } */
   },
   /*
   ** Build configuration
@@ -104,6 +111,7 @@ module.exports = {
       ]
     },
     cache: true,
+    cssSourceMap: false,
     extend (config, ctx) {
     },
     parallel: true,
