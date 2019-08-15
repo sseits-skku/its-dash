@@ -28,7 +28,7 @@ export default {
     return {
       drawer: false,
       items: [
-        { id: 'dashboard', title: 'DASHBOARD', icon: 'mdi-view-dashboard' },
+        { id: 'memberdash', title: 'DASHBOARD', icon: 'mdi-view-dashboard' },
         { id: 'timetable', title: 'OH 시간표', icon: 'mdi-calendar' },
         { id: 'gallery', title: '갤러리', icon: 'mdi-image-multiple' },
         { id: 'agenda', title: '안건 게시판', icon: 'mdi-gavel' },

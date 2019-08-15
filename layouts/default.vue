@@ -13,7 +13,7 @@ import Snackbar from '@/components/Snackbar'
 import Toolbar from '@/components/Toolbar'
 import Drawer from '@/components/Drawer'
 import Footer from '@/components/Footer'
-
+// TODO: Pagination 어떻게 처리할지 고민해보기.
 export default {
   components: {
     Snackbar,
@@ -30,6 +30,21 @@ export default {
         this.$vuetify.theme.isDark = true
       } else {
         this.$vuetify.theme.isDark = false
+      }
+    })
+    this.$store.watch(state => state.currentPage, (newVal, oldVal) => {
+      const existPage = [
+        'about', 'project', 'education', 'notice',
+        'dashboard', 'service', 'room', 'register',
+        'recruit', 'login', 'memberadd', 'memberdash',
+        'timetable', 'gallery', 'agenda', 'debt', 'vote'
+      ]
+      const page = this.$store.state.currentPage
+      console.log(`${newVal} => ${oldVal}`)
+      if (page in existPage) {
+        this.$router.push({ path: '/' + page })
+      } else {
+        this.$router.push({ path: '/' })
       }
     })
   },

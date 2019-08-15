@@ -1,37 +1,34 @@
 <template>
-  <v-content>
-    <v-container
-      class="fill-height"
-      fluid
-    >
-      <v-col>
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <h1 v-if="error.statusCode === 404">
-            {{ pageNotFound.detail }}
-          </h1>
-          <h1 v-else>
-            {{ otherError.detail }}
-          </h1>
-        </v-row>
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <NuxtLink to="/">
-            <h2>메인 화면</h2>
-          </NuxtLink>
-        </v-row>
-      </v-col>
-    </v-container>
-  </v-content>
+  <v-container
+    class="fill-height"
+    fluid
+  >
+    <v-col>
+      <v-row
+        align="center"
+        justify="center"
+      >
+        <h1 v-if="error.statusCode === 404">
+          {{ pageNotFound.detail }}
+        </h1>
+        <h1 v-else>
+          {{ otherError.detail }}
+        </h1>
+      </v-row>
+      <v-row
+        align="center"
+        justify="center"
+      >
+        <NuxtLink to="/">
+          <h2>메인 화면</h2>
+        </NuxtLink>
+      </v-row>
+    </v-col>
+  </v-container>
 </template>
 
 <script>
 export default {
-  layout: 'empty',
   props: {
     error: {
       type: Object,
