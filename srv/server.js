@@ -4,12 +4,9 @@ import consola from 'consola'
 import cookieParser from 'cookie-parser'
 import express from 'express'
 import logger from 'morgan'
-import passport from 'passport'
 import { Nuxt, Builder } from 'nuxt'
 
 import config from '../nuxt.config'
-
-import hookJWTStrategy from '@/services/passportStrategy'
 
 import router from '@/routes/index'
 config.dev = process.env.NODE_ENV !== 'production'
@@ -32,9 +29,6 @@ async function start () {
   app.use(cookieParser())
   app.use(bodyParser.json())
   app.use(express.static(path.join(__dirname, 'public')))
-  app.use(passport.initialize())
-
-  hookJWTStrategy(passport)
 
   app.use('/api', router)
 

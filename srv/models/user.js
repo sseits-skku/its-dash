@@ -5,12 +5,24 @@ import secret from '~/secret.config'
 import db from '@/services/database'
 
 const modelDefinition = {
-  username: {
+  loginId: {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false
   },
-  password: {
+  passwd: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  studentId: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  email: {
     type: Sequelize.STRING,
     allowNull: false
   }
@@ -18,17 +30,17 @@ const modelDefinition = {
 
 const modelOptions = {
   instanceMethods: {
-    comparePasswords: (password, callback) => {
-      bcrypt.compare(password, this.password, function (error, isMatch) {
+    comparePasswords: (passwd, callback) => {
+      bcrypt.compare(passwd, this.passwd, function (error, isMatch) {
         if (error) {
           return callback(null, isMatch)
         }
       })
     },
     hashPassword: (user) => {
-      if (user.changed('password')) {
-        return bcrypt.hash(user.password, 10).then((password) => {
-          user.password = password
+      if (user.changed('passwd')) {
+        return bcrypt.hash(user.passwd, 10).then((passwd) => {
+          user.passwd = passwd
         })
       }
     }
