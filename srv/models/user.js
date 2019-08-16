@@ -1,7 +1,6 @@
 import Sequelize from 'sequelize'
 import bcrypt from 'bcrypt'
 
-import secret from '~/secret.config'
 import db from '@/services/database'
 
 const modelDefinition = {

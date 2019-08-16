@@ -20,7 +20,7 @@
         justify="center"
       >
         <NuxtLink to="/">
-          <h2>메인 화면</h2>
+          <h2>{{ this.$t('error.main') }}</h2>
         </NuxtLink>
       </v-row>
     </v-col>
@@ -29,6 +29,7 @@
 
 <script>
 export default {
+  layout: 'empty',
   props: {
     error: {
       type: Object,

@@ -1,37 +1,46 @@
 <template>
-  <v-app>
-    <Snackbar />
-    <Toolbar />
+  <v-app :dark="isauth">
+    <Login />
     <Drawer />
-    <nuxt />
+    <v-content>
+      <v-container>
+        <nuxt />
+      </v-container>
+    </v-content>
     <Footer />
+    <Snackbar />
   </v-app>
 </template>
 
 <script>
 import Snackbar from '@/components/Snackbar'
-import Toolbar from '@/components/Toolbar'
 import Drawer from '@/components/Drawer'
 import Footer from '@/components/Footer'
+import Login from '@/components/Login'
 // TODO: Pagination 어떻게 처리할지 고민해보기.
 export default {
   components: {
     Snackbar,
-    Toolbar,
     Drawer,
-    Footer
+    Footer,
+    Login
   },
   data () {
-    return {}
+    return {
+      isauth: false
+    }
   },
   created () {
     this.$store.watch(state => state.auth.auth, () => {
       if (this.$store.state.auth.auth !== null) {
-        this.$vuetify.theme.isDark = true
+        // this.$vuetify.theme.isDark = true
+        this.isauth = true
       } else {
-        this.$vuetify.theme.isDark = false
+        // this.$vuetify.theme.isDark = false
+        this.isauth = false
       }
     })
+    /*
     this.$store.watch(state => state.currentPage, (newVal, oldVal) => {
       const existPage = [
         'about', 'project', 'education', 'notice',
@@ -47,6 +56,7 @@ export default {
         this.$router.push({ path: '/' })
       }
     })
+    */
   },
   head () {
     return this.$store.state.auth.auth === null

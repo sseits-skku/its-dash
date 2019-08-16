@@ -1,0 +1,35 @@
+{
+  "menu": {
+    "sseits": "SSE-ITS",
+    "about_us": "About us",
+    "project": "Project",
+    "education": "Edu resource",
+    "recruit": "Apply",
+    "notice": "Notice",
+    "dashboard": "Dashboard",
+    "suggest": "Suggestion",
+    "room": "Seminar room",
+    "register": "Student ID",
+    "membertitle": "Member Panel",
+    "memberdash": "Master Dashboard",
+    "timetable": "OH TimeTable",
+    "agenda": "Agenda board",
+    "debt": "Debt relationship",
+    "vote": "Vote system",
+    "gallery": "Gallery",
+    "dashtitle": "Workstation Room",
+    "reserve": "Reservation"
+  },
+  "ui": {
+    "id": "Num",
+    "title": "Title",
+    "author": "Author",
+    "wrote_date": "Written Date",
+    "hit": "Hits",
+    "status": "Status",
+    "write_button": "Write"
+  },
+  "error": {
+    "main": "Go to Main page"
+  }
+}

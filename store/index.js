@@ -1,13 +1,12 @@
 export const state = () => ({
-  dialog: false,
-  currentPage: 'main'
+  locales: ['en', 'ko'],
+  locale: 'ko'
 })
 
 export const mutations = {
-  goPage (state, text) {
-    state.currentPage = text
-  },
-  dialog (state, tf) {
-    state.dialog = tf
+  SET_LANG (state, locale) {
+    if (state.locales.includes(locale)) {
+      state.locale = locale
+    }
   }
 }

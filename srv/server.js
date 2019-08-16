@@ -31,6 +31,7 @@ async function start () {
   app.use(express.static(path.join(__dirname, 'public')))
 
   app.use('/api', router)
+  app.use('/static', express.static('static'))
 
   app.use(nuxt.render)
 

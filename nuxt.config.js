@@ -29,8 +29,8 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-  ],
+  router: { middleware: 'i18n' },
+  plugins: [ '~/plugins/i18n.js' ],
   /*
   ** Nuxt.js dev-modules
   */

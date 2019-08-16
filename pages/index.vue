@@ -1,9 +1,4 @@
-<template>
-  <div />
-</template>
-
 <script>
-export default {
-  layout: 'default'
-}
+import Index from './_lang/index'
+export default Index
 </script>
