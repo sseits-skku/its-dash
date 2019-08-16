@@ -29,22 +29,18 @@ const modelDefinition = {
 
 const modelOptions = {
   instanceMethods: {
-    comparePasswords: (passwd, callback) => {
-      bcrypt.compare(passwd, this.passwd, function (error, isMatch) {
-        if (error) {
-          return callback(null, isMatch)
-        }
-      })
-    },
-    hashPassword: (user) => {
-      if (user.changed('passwd')) {
-        return bcrypt.hash(user.passwd, 10).then((passwd) => {
-          user.passwd = passwd
-        })
-      }
-    }
+    comparePassword: passwd => bcrypt.compare(passwd, this.passwd),
+    hashPassword: passwd => bcrypt.hash(passwd, 10)
   }
 }
 
 const UserModel = db.define('user', modelDefinition, modelOptions)
+UserModel.beforeCreate((user, options) => {
+  if (user.changed('passwd')) {
+    bcrypt.hash(user.get('passwd'), 10)
+  }
+})
+
+UserModel.sync()
+
 export default UserModel

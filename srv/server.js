@@ -32,6 +32,20 @@ async function start () {
 
   app.use('/api', router)
   app.use('/static', express.static('static'))
+  app.use((err, req, res, next) => {
+    console.error(err.stack)
+    if (err.code === 'EBADCSRFTOKEN') {
+      res.status(400).json({
+        success: false,
+        reason: 'CSRF_TOKEN'
+      })
+    } else {
+      res.status(500).json({
+        success: false,
+        reason: 'SOMETHING_WRONG'
+      })
+    }
+  })
 
   app.use(nuxt.render)
 
