@@ -8,6 +8,7 @@ import room from './room'
 import register from './register'
 import login from './login'
 import user from './user'
+import token from './token'
 
 const router = express.Router()
 router.use('/recruit', recruit)
@@ -18,5 +19,6 @@ router.use('/room', room)
 router.use('/register', register)
 router.use('/login', login)
 router.use('/user', user)
+router.use('/token', token)
 
 export default router

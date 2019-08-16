@@ -8,10 +8,11 @@ export default {
     detail: {
       host: 'your.db.com',
       port: '1234',
-      dialect: 'mysql'
+      dialect: 'mariadb'
     }
   },
-  keys: {
-    secret: 'D(G-KaPdSgVkYp3s6v9y$B&E)H@MbQeThWmZq4t7w!z%C*F-JaNdRfUjXn2r5u8x'
+  secret: {
+    access: 'something-s3cr3t-things',
+    refresh: 'something-s3cr3t-thIngs'
   }
 }
