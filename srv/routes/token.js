@@ -1,7 +1,6 @@
 import express from 'express'
 import authzone from '~/middlewares/authzone'
 import config from '@/secret.config'
-import { nextTick } from 'q';
 const router = express.Router()
 
 router.use(authzone)
