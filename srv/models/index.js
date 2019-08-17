@@ -5,21 +5,13 @@ import Sequelize from 'sequelize'
 import user from './user'
 import rawConfig from '@/config/config.json'
 
-const basename = path.basename(__filename)
 const env = process.env.NODE_ENV || 'development'
 const config = rawConfig[env]
 const db = {}
 
 const sequelize = new Sequelize(config)
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => (file.indexOf('.') !== 0) &&
-                  (file !== basename) && (file.slice(-3) === '.js'))
-  .forEach((file) => {
-    const model = sequelize.import(path.join(__dirname, file))
-    db[model.name] = model
-  })
+db.User = user(sequelize, Sequelize)
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
@@ -29,7 +21,5 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize
-
-db.User = user(sequelize, Sequelize)
 
 export default db
