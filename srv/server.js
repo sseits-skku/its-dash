@@ -22,7 +22,7 @@ async function start () {
     await nuxt.ready()
   }
 
-  sequelize.sync()
+  sequelize.sequelize.sync()
   app.use(logger('dev'))
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))

@@ -1,8 +1,6 @@
 import Sequelize from 'sequelize'
 import bcrypt from 'bcrypt'
 
-import db from '@/services/database'
-
 const modelDefinition = {
   loginId: {
     type: Sequelize.STRING,
@@ -34,4 +32,4 @@ const modelOptions = {
   }
 }
 
-export default (sequelize, DataTypes) => db.define('user', modelDefinition, modelOptions)
+export default (sequelize, DataTypes) => sequelize.define('user', modelDefinition, modelOptions)
