@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import config from '@/secret.config'
+import config from '~/secret.config'
 
 export default (req, res, next) => {
   const accessToken = req.headers['x-access-token']
