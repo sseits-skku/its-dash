@@ -1,4 +1,11 @@
+<template>
+  <div />
+</template>
+
 <script>
-import Index from './_lang/index'
-export default Index
+export default {
+  mounted () {
+    this.$router.push('/ko')
+  }
+}
 </script>
