@@ -1,6 +1,6 @@
 import express from 'express'
-import authzone from '~/middlewares/authzone'
-import config from '@/secret.config'
+import authzone from '@/middlewares/authzone'
+import config from '~/secret.config'
 const router = express.Router()
 
 router.use(authzone)

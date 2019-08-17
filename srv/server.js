@@ -6,7 +6,7 @@ import express from 'express'
 import logger from 'morgan'
 import { Nuxt, Builder } from 'nuxt'
 
-import config from '../nuxt.config'
+import config from '~/nuxt.config'
 
 import router from '@/routes/index'
 config.dev = process.env.NODE_ENV !== 'production'

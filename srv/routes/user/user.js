@@ -1,6 +1,6 @@
 import express from 'express'
 import { User } from '~/models/user'
-import authzone from '~/middlewares/authzone'
+import authzone from '@/middlewares/authzone'
 
 const router = express.Router()
 
@@ -37,7 +37,7 @@ export default router
 
 /*
 import express from 'express'
-import authzone from '~/middlewares/authzone'
+import authzone from '@/middlewares/authzone'
 const router = express.Router()
 
 router.use('/', authzone)

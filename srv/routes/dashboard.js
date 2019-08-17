@@ -1,5 +1,5 @@
 import express from 'express'
-import authzone from '~/middlewares/authzone'
+import authzone from '@/middlewares/authzone'
 const router = express.Router()
 
 router.get('/:work', (req, res) => {
