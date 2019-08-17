@@ -34,13 +34,4 @@ const modelOptions = {
   }
 }
 
-const UserModel = db.define('user', modelDefinition, modelOptions)
-UserModel.beforeCreate((user, options) => {
-  if (user.changed('passwd')) {
-    bcrypt.hash(user.get('passwd'), 10)
-  }
-})
-
-UserModel.sync()
-
-export default UserModel
+export default (sequelize, DataTypes) => db.define('user', modelDefinition, modelOptions)

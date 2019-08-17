@@ -93,3 +93,4 @@ sw.*
 yarn.lock
 
 secret.config.js
+srv/config/config.json

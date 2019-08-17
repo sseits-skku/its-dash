@@ -1,4 +1,3 @@
-import path from 'path'
 import bodyParser from 'body-parser'
 import consola from 'consola'
 import cookieParser from 'cookie-parser'
@@ -7,7 +6,7 @@ import logger from 'morgan'
 import { Nuxt, Builder } from 'nuxt'
 
 import config from '~/nuxt.config'
-
+import sequelize from '@/models/index'
 import router from '@/routes/index'
 config.dev = process.env.NODE_ENV !== 'production'
 
@@ -23,12 +22,12 @@ async function start () {
     await nuxt.ready()
   }
 
+  sequelize.sync()
   app.use(logger('dev'))
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))
   app.use(cookieParser())
   app.use(bodyParser.json())
-  app.use(express.static(path.join(__dirname, 'public')))
 
   app.use('/api', router)
   app.use('/static', express.static('static'))
