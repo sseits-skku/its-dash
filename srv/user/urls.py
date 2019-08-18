@@ -3,7 +3,11 @@ from .views import Token, Person, Member
 
 
 urlpatterns = [
-    path('token/<int:id>', Token.as_view(), name='notice'),
-    path('person/<int:id>', Person.as_view(), name='service'),
-    path('member/<int:id>', Member.as_view(), name='recruit'),
+    path('token', Token.as_view()),
+    # think about it later.
+    # path('token/<int:tokeid>', Token.as_view()),
+    path('person', Person.as_view()),
+    path('person/<int:person_id>', Person.as_view()),
+    path('member', Member.as_view()),
+    path('member/<int:member_id>', Member.as_view()),
 ]

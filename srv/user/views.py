@@ -3,25 +3,25 @@ from django.views.generic import View
 
 
 class Person(View):
-    def get(self, request):
+    def get(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
         })
 
-    def post(self, request):
+    def post(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
         })
 
-    def put(self, request):
+    def put(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
         })
 
-    def delete(self, request):
+    def delete(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
@@ -29,25 +29,25 @@ class Person(View):
 
 
 class Member(View):
-    def get(self, request):
+    def get(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
         })
 
-    def post(self, request):
+    def post(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
         })
 
-    def put(self, request):
+    def put(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
         })
 
-    def delete(self, request):
+    def delete(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
@@ -55,25 +55,25 @@ class Member(View):
 
 
 class Token(View):
-    def get(self, request):
+    def get(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
         })
 
-    def post(self, request):
+    def post(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
         })
 
-    def put(self, request):
+    def put(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
         })
 
-    def delete(self, request):
+    def delete(self, request, **kwargs):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'

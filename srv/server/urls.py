@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('board/', include('board.urls')),
+    path('', include('board.urls')),
+    path('', include('user.urls')),
+    path('', include('thing.urls')),
     path('reserve/', include('reserve.urls')),
-    path('thing/', include('thing.urls')),
-    path('user/', include('user.urls')),
+    # XXX: remove this when deploy.
+    path('admin/', admin.site.urls),
 ]
