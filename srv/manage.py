@@ -18,12 +18,16 @@ def main():
         os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                               'server.settings.test')
     else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE',
+                              'server.settings.development')
+        '''
         raise ValueError(
             "\nPlease Specify environment. \n"
             "\'--dev\' for develoment, \n"
             "\'--prod\' for production, \n"
             "\'--test\' for test."
         )
+        '''
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

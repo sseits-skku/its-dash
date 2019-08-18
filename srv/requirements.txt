@@ -3,8 +3,10 @@ ecdsa==0.13.2
 entrypoints==0.3
 flake8==3.7.8
 future==0.17.1
+lorem==0.1.1
 mccabe==0.6.1
 mysqlclient==1.4.4
+names==0.3.0
 pyasn1==0.4.6
 pycodestyle==2.5.0
 pyflakes==2.1.1
