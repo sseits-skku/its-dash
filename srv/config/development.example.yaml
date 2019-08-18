@@ -1,10 +1,5 @@
-db:
-    dialect: 'mysql+pymysql'
-    host: db.develop.com
-    port: 1234
-    user: test
-    passwd: test
-    db: testdb
-secret:
-    access: something-secret
-    refresh: something-more-secret
+SQLALCHEMY_DATABASE_URI: 'mysql://test:test@db.develop.com:1234/testdb'
+SQLALCHEMY_TRACK_MODIFICATIONS: false
+SECRET_KEY: THIS-IS-SECRET
+ACCESS_KEY: something-secret
+REFRESH_KEY: something-more-secret

@@ -1,6 +1,4 @@
-db:
-    dialect: sqlite
-    host: '/:memory:'
-secret:
-    access: something-secret
-    refresh: something-more-secret
+SQLALCHEMY_DATABASE_URI: 'sqlite:///:memory:'
+SECRET_KEY: THIS-IS-SECRET
+ACCESS_KEY: something-secret
+REFRESH_KEY: something-more-secret
