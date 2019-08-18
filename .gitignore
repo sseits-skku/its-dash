@@ -78,7 +78,7 @@ dist
 .serverless
 
 # IDE / Editor
-.idea
+srv/.idea
 .editorconfig
 
 # Service worker
@@ -94,9 +94,9 @@ yarn.lock
 
 secret.config.js
 
-srv/config/development.yaml
-srv/config/production.yaml
-
+srv/server/settings/production.py
+srv/server/settings/development.py
+srv/restapi/migrations
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
