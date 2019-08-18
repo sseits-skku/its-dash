@@ -55,25 +55,7 @@ class Member(View):
 
 
 class Token(View):
-    def get(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
-
-    def post(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
-
-    def put(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
-
-    def delete(self, request, **kwargs):
+    def put(self, request):
         return JsonResponse({
             'success': False,
             'reason': 'NOT_IMPLEMENTED'
