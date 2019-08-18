@@ -24,7 +24,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # no static file used in backend.
     'django.contrib.staticfiles',
     'board.apps.BoardConfig',
     'reserve.apps.ReserveConfig',
