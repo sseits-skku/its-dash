@@ -9,5 +9,9 @@
   "[yaml]": {
       "editor.tabSize": 4
 },
-"python.pythonPath": "env\\Scripts\\python.exe"
+"python.pythonPath": "env\\Scripts\\python.exe",
+"python.linting.pylintEnabled": false,
+"python.linting.flake8Enabled": true,
+"python.linting.enabled": true,
+"python.formatting.provider": "yapf"
 }
