@@ -1,6 +1,8 @@
 from django.utils import timezone
 from django.db import models
 
+from utils.mod_str import trunc
+
 
 class Comment(models.Model):
     nickname = models.CharField(max_length=255,
@@ -15,13 +17,46 @@ class Comment(models.Model):
     subcomment = models.ForeignKey('self',
                                    on_delete=models.CASCADE)
 
+    class Meta:
+        app_label = 'board'
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __unicode__(self):
+        return self.__str__()
+
+    def __str__(self):
+        return trunc(self.content, 20)
+
 
 class Category(models.Model):
     title = models.CharField(max_length=255, null=False)
 
+    class Meta:
+        app_label = 'board'
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __unicode__(self):
+        return self.__str__()
+
+    def __str__(self):
+        return trunc(self.title, 20)
+
 
 class Tag(models.Model):
     title = models.CharField(max_length=255, null=False)
+
+    class Meta:
+        app_label = 'board'
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __unicode__(self):
+        return trunc(self.title, 20)
 
 
 class Post(models.Model):
@@ -51,3 +86,15 @@ class Post(models.Model):
     tag = models.ManyToManyField('Tag')
     comment = models.ForeignKey('Comment',
                                 on_delete=models.CASCADE)
+
+    class Meta:
+        app_label = 'board'
+
+    def __str__(self):
+        return trunc(self.title, 20)
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __unicode__(self):
+        return self.__str__()

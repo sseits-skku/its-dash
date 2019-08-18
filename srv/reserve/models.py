@@ -2,15 +2,13 @@ from django.utils import timezone
 from django.db import models
 
 
-ROOM_TYPE = [
-    ('GREEN', '그린 (4인실)'),
-    ('ORANGE', '오렌지 (10인실)'),
-    ('YELLOW', '옐로우 (6인실)'),
-    ('BLUE', '블루 (6인실)'),
-]
-
-
 class Seminar(models.Model):
+    ROOM_TYPE = [
+        ('GREEN', '그린 (4인실)'),
+        ('ORANGE', '오렌지 (10인실)'),
+        ('YELLOW', '옐로우 (6인실)'),
+        ('BLUE', '블루 (6인실)'),
+    ]
     room = models.CharField(max_length=255,
                             choices=ROOM_TYPE,
                             null=False)
@@ -31,6 +29,18 @@ class Seminar(models.Model):
                                 on_delete=models.SET_NULL,
                                 null=True)
 
+    class Meta:
+        app_label = 'reserve'
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __unicode__(self):
+        return self.__str__()
+
+    def __str__(self):
+        return self.start_time.isoformat()
+
 
 class Card(models.Model):
     visit_date = models.DateTimeField(null=False)
@@ -39,3 +49,15 @@ class Card(models.Model):
     person = models.OneToOneField('user.Person',
                                   on_delete=models.SET_NULL,
                                   null=True)
+
+    class Meta:
+        app_label = 'reserve'
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __unicode__(self):
+        return self.__str__()
+
+    def __str__(self):
+        return self.visit_date.isoformat()
