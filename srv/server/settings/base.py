@@ -16,43 +16,31 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(wm=eti9tyq(2bt$mlh94boi*n71a@x3marp!^vfll8j)*f!u2'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    # we don't need session. Use JWT instead.
-    # 'django.contrib.sessions',
+    'django.contrib.sessions',
     'django.contrib.messages',
     # no static file used in backend.
-    # 'django.contrib.staticfiles',
-    'restapi.apps.RestAPIConfig'
+    'django.contrib.staticfiles',
+    'board.apps.BoardConfig',
+    'reserve.apps.ReserveConfig',
+    'thing.apps.ThingConfig',
+    'user.apps.UserConfig'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # we don't need session. Use JWT instead.
-    # 'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    # we don't need authentication. Use JWT instead.
-    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # no clicks for backend.
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'server.urls'
@@ -100,4 +88,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 # no static files for backend.
-# STATIC_URL = '/static/'
+
+STATIC_URL = '/static/'

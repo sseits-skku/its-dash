@@ -96,14 +96,14 @@ secret.config.js
 
 srv/server/settings/production.py
 srv/server/settings/development.py
-srv/restapi/migrations
+migrations/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
+test.db
 # C extensions
 *.so
 
