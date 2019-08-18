@@ -1,0 +1,6 @@
+db:
+    dialect: sqlite
+    host: '/:memory:'
+secret:
+    access: something-secret
+    refresh: something-more-secret

@@ -1,0 +1,10 @@
+db:
+    dialect: 'mysql+pymysql'
+    host: db.product.com
+    port: 1234
+    user: test
+    passwd: test
+    db: testdb
+secret:
+    access: something-secret
+    refresh: something-more-secret
