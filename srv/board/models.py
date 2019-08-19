@@ -1,5 +1,8 @@
 from django.utils import timezone
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.contrib.auth.hashers import make_password, is_password_usable
 
 from utils.mod_str import trunc
 
@@ -15,8 +18,9 @@ class Comment(models.Model):
                               null=False)
     is_subcomment = models.BooleanField(default=False)
     subcomment = models.ForeignKey('self',
-                                   on_delete=models.CASCADE)
-
+                                   on_delete=models.CASCADE,
+                                   null=True)
+    
     class Meta:
         app_label = 'board'
 
@@ -98,3 +102,10 @@ class Post(models.Model):
 
     def __unicode__(self):
         return self.__str__()
+
+
+@receiver(pre_save, sender=Post)
+@receiver(pre_save, sender=Comment)
+def password_hashing(instance, **kwargs):
+    if not is_password_usable(instance.passwd):
+        instance.passwd = make_password(instance.passwd)

@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'board.apps.BoardConfig',
     'reserve.apps.ReserveConfig',
     'thing.apps.ThingConfig',
-    'user.apps.UserConfig'
+    'user.apps.UserConfig',
+    'iptable.apps.IptableConfig'
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},            # noqa: E501
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},           # noqa: E501
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},          # noqa: E501
+]
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
 
 # Internationalization

@@ -1,80 +1,93 @@
-from django.http import JsonResponse
 from django.views.generic import View
 
+from utils.mod_str import gen_json
 
-class ThingType(View):
+
+class ThingTypeView(View):
     def get(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'ttype_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def post(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'ttype_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def put(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'ttype_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def delete(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'ttype_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
 
-class Thing(View):
+class ThingView(View):
     def get(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'thing_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def post(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'thing_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def put(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'thing_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def delete(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'thing_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
 
-class Seat(View):
+class SeatView(View):
     def get(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'seat_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def post(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'seat_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def put(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'seat_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def delete(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'seat_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')

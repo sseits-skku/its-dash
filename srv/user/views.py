@@ -1,62 +1,69 @@
-from django.http import JsonResponse
 from django.views.generic import View
 
+from utils.mod_str import gen_json
 
-class Person(View):
+
+class PersonView(View):
     def get(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'person_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def post(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'person_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def put(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'person_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def delete(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'person_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
 
-class Member(View):
+class MemberView(View):
     def get(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'member_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def post(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'member_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def put(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'member_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
     def delete(self, request, **kwargs):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+        if 'member_id' in kwargs:
+            pass   # TODO
+        else:
+            pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
 
 
-class Token(View):
-    def put(self, request):
-        return JsonResponse({
-            'success': False,
-            'reason': 'NOT_IMPLEMENTED'
-        })
+class TokenView(View):
+    def put(self, request, **kwargs):
+        pass   # TODO
+        return gen_json(reason='EMPTY_DATA')
