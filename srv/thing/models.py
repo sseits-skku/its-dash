@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.db import models
 
-
+# TODO: Seat가 불완전함. Computer랑 이것저것 해서 분리할 것.
 class ThingType(models.Model):
     title = models.CharField(max_length=255,
                              null=False)
