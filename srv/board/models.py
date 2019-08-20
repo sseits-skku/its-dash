@@ -1,111 +1,101 @@
-from django.utils import timezone
 from django.db import models
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
-from django.contrib.auth.hashers import make_password, is_password_usable
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
-from utils.mod_str import trunc
+from account.models import AnonymousUser
+from utils.placeholder_models import PlaceholderModel, SharedCharField, \
+                                     MarkdownSnippet
 
 
-class Comment(models.Model):
-    nickname = models.CharField(max_length=255,
-                                null=False)
-    ip_addr = models.CharField(max_length=15,
-                               null=False)
-    deleted = models.BooleanField(default=False)
-    content = models.TextField(null=False)
-    passwd = models.CharField(max_length=255,
-                              null=False)
+class Category(PlaceholderModel):
+    title = SharedCharField(vname='Category name',
+                            unique=True,
+                            null=False, blank=False)
+
+    class Meta:
+        app_label = 'board'
+        ordering = ('title', )
+        verbose_name = _('category')
+        verbose_name_plural = _('categories')
+
+
+class Tag(PlaceholderModel):
+    title = SharedCharField(vname='Tag name',
+                            unique=True,
+                            null=False, blank=False)
+
+    class Meta:
+        app_label = 'board'
+        ordering = ('title', )
+        verbose_name = _('tag')
+
+
+class PostStatus(PlaceholderModel):
+    title = SharedCharField(vname='Post status',
+                            unique=True,
+                            null=False, blank=False)
+    detail = SharedCharField(vname='Post detail',
+                             null=False, blank=False)
+
+    class Meta:
+        app_label = 'board'
+        ordering = ('title', )
+        verbose_name = _('post status')
+        verbose_name_plural = _('post statuses')
+
+
+class Comment(AnonymousUser, MarkdownSnippet):
+    # content from MarkdownSnippet
+    # password from AnonymousUser
+    ip_addr = models.GenericIPAddressField(verbose_name=_('Wrote IP Address'))
+    deleted = models.BooleanField(verbose_name=_('Is deleted'),
+                                  default=False)
+    # nickname from AnonymousUser
     is_subcomment = models.BooleanField(default=False)
-    subcomment = models.ForeignKey('self',
-                                   on_delete=models.CASCADE,
-                                   null=True)
-    
-    class Meta:
-        app_label = 'board'
-
-    def __repr__(self):
-        return self.__str__()
-
-    def __unicode__(self):
-        return self.__str__()
-
-    def __str__(self):
-        return trunc(self.content, 20)
-
-
-class Category(models.Model):
-    title = models.CharField(max_length=255, null=False)
+    parent = models.ForeignKey('self', null=True,
+                               related_name='subcomment',
+                               on_delete=models.CASCADE)
+    created_date = models.DateTimeField(verbose_name=_('Wrote IP Address'),
+                                        auto_now_add=timezone.now)
+    modified_date = models.DateTimeField(verbose_name=_('Wrote IP Address'),
+                                         auto_now=timezone.now)
 
     class Meta:
         app_label = 'board'
-
-    def __repr__(self):
-        return self.__str__()
-
-    def __unicode__(self):
-        return self.__str__()
-
-    def __str__(self):
-        return trunc(self.title, 20)
+        ordering = ('-created_date', )
+        verbose_name = _('post')
 
 
-class Tag(models.Model):
-    title = models.CharField(max_length=255, null=False)
-
-    class Meta:
-        app_label = 'board'
-
-    def __repr__(self):
-        return self.__str__()
-
-    def __unicode__(self):
-        return trunc(self.title, 20)
-
-
-class Post(models.Model):
-    STATUS_TYPE = [
-        ('NEW', '아직 읽지 않음'),
-        ('ASSIGNED', '관리자가 인지함'),
-        ('ACCEPTED', '관리자가 해결 중'),
-        ('FIXED', '해결됨'),
-        ('WONTFIX', '해결하지 않을 것'),
-        ('DUPLICATED', '중복된 요청'),
-    ]
-    title = models.CharField(max_length=255, null=False)
-    content = models.TextField(max_length=255, null=False)
-    passwd = models.CharField(max_length=255, null=False)
-    deleted = models.BooleanField(default=False)
-    ip_addr = models.CharField(max_length=15, null=False)
-    nickname = models.CharField(max_length=255, null=False)
-    status = models.CharField(max_length=255,
-                              choices=STATUS_TYPE,
-                              default='NEW')
-    created_date = models.DateTimeField(null=False,
-                                        default=timezone.now)
-    modified_date = models.DateTimeField(null=False,
-                                         default=timezone.now)
+class Post(AnonymousUser, MarkdownSnippet):
+    title = SharedCharField(vname='Post title',
+                            null=False, blank=False)
+    # content from MarkdownSnippet
+    # password from AnonymousUser
+    ip_addr = models.GenericIPAddressField(verbose_name=_('Wrote IP Address'))
+    deleted = models.BooleanField(verbose_name=_('Is deleted'),
+                                  default=False)
+    # nickname from AnonymousUser
+    status = models.ForeignKey('PostStatus',
+                               verbose_name=_('Post status'),
+                               on_delete=models.SET_NULL,
+                               null=True)
+    created_date = models.DateTimeField(verbose_name=_('Wrote IP Address'),
+                                        auto_now_add=timezone.now)
+    modified_date = models.DateTimeField(verbose_name=_('Wrote IP Address'),
+                                         auto_now=timezone.now)
     category = models.ForeignKey('Category',
+                                 verbose_name=_('Post category'),
                                  on_delete=models.PROTECT)
-    tag = models.ManyToManyField('Tag')
-    comment = models.ForeignKey('Comment',
-                                on_delete=models.CASCADE)
+    tags = models.ManyToManyField('Tag',
+                                  verbose_name=_('Post Tags'),
+                                  related_name='tag',
+                                  related_query_name='tag')
+    comment = models.ManyToManyField('Comment',
+                                     verbose_name=_('Post comments'),
+                                     related_name='comment',
+                                     related_query_name='comment')
 
     class Meta:
         app_label = 'board'
-
-    def __str__(self):
-        return trunc(self.title, 20)
-
-    def __repr__(self):
-        return self.__str__()
-
-    def __unicode__(self):
-        return self.__str__()
-
-
-@receiver(pre_save, sender=Post)
-@receiver(pre_save, sender=Comment)
-def password_hashing(instance, **kwargs):
-    if not is_password_usable(instance.passwd):
-        instance.passwd = make_password(instance.passwd)
+        ordering = ('-created_date', )
+        verbose_name = _('post')

@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet as mvs
+from .models import IPAddress
+from .serializers import IPAddressSerializer
 
-# Create your views here.
+
+class IPAddressViewSet(mvs):
+    queryset = IPAddress.objects.all()
+    serializer_class = IPAddressSerializer

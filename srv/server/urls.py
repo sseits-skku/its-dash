@@ -1,4 +1,4 @@
-"""p URL Configuration
+"""server URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -13,21 +13,25 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include
 from django.conf import settings
+from django.urls import path, include
+
 
 urlpatterns = [
-    path('', include('board.urls')),
-    path('', include('user.urls')),
-    path('', include('thing.urls')),
+    path('account/', include('account.urls')),
+    path('board/', include('board.urls')),
+    path('inventory/', include('inventory.urls')),
+    path('ip-table/', include('iptable.urls')),
     path('reserve/', include('reserve.urls')),
-    # XXX: remove this when deploy.
 ]
 
 if settings.DEBUG:
     from django.contrib import admin
     import debug_toolbar
-    urlpatterns.extend([
-        path('debug/', include(debug_toolbar.urls)),
-        path('admin/', admin.site.urls)
-    ])
+
+    urlpatterns += [
+        path('admin/', admin.site.urls),
+        path('api-auth/', include('rest_framework.urls',
+                                  namespace='rest_framework')),
+        path('__debug__', include(debug_toolbar.urls)),
+    ]

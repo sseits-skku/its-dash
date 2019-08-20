@@ -24,11 +24,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'rest_framework',
+    'django_filters',
+    'guardian',
+    'account.apps.AccountConfig',
     'board.apps.BoardConfig',
-    'reserve.apps.ReserveConfig',
-    'thing.apps.ThingConfig',
-    'user.apps.UserConfig',
-    'iptable.apps.IptableConfig'
+    'inventory.apps.InventoryConfig',
+    'iptable.apps.IptableConfig',
+    'reserve.apps.ReserveConfig'
 ]
 
 MIDDLEWARE = [
@@ -41,10 +44,9 @@ MIDDLEWARE = [
     # no clicks for backend.
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'debug_toolbar_force.middleware.ForceDebugToolbarMiddleware',
 ]
 
-INTERNAL_IPS = ('127.0.0.1',)
+INTERNAL_IPS = ['127.0.0.1', ]
 
 ROOT_URLCONF = 'server.urls'
 
@@ -66,6 +68,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'server.wsgi.application'
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # default
+    'guardian.backends.ObjectPermissionBackend',
+]
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -75,6 +82,8 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},           # noqa: E501
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},          # noqa: E501
 ]
+
+AUTH_USER_MODEL = 'account.User'
 
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
@@ -97,3 +106,23 @@ USE_TZ = True
 # no static files for backend.
 
 STATIC_URL = '/static/'
+
+# Django REST Framework settings.
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',  # noqa: E501
+    'PAGE_SIZE': 10
+}
+
+# Django Guardian settings.
+
+GUARDIAN_RAISE_403 = True
+
+# Django-Debug-Toolbar settings.
+
+# ?????

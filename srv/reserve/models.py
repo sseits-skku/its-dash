@@ -1,63 +1,71 @@
-from django.utils import timezone
 from django.db import models
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+
+from account.models import AnonymousUser
+from utils.placeholder_models import PlaceholderModel, SharedCharField
 
 
-class Seminar(models.Model):
-    ROOM_TYPE = [
-        ('GREEN', '그린 (4인실)'),
-        ('ORANGE', '오렌지 (10인실)'),
-        ('YELLOW', '옐로우 (6인실)'),
-        ('BLUE', '블루 (6인실)'),
-    ]
-    room = models.CharField(max_length=255,
-                            choices=ROOM_TYPE,
-                            null=False)
-    phone = models.CharField(max_length=255,
-                             null=False)
-    start_time = models.DateTimeField(
-                        null=False,
-                        default=timezone.now)
-    end_time = models.DateTimeField(
-                      null=False,
-                      default=timezone.now)
-    boss = models.OneToOneField('user.Person',
-                                related_name='boss',
-                                on_delete=models.SET_NULL,
-                                null=True)
-    friends = models.ForeignKey('user.Person',
-                                related_name='friends',
-                                on_delete=models.SET_NULL,
-                                null=True)
+class Room(PlaceholderModel):
+    title = SharedCharField(vname='name',
+                            unique=True,
+                            null=False, blank=False)
+    status = models.BooleanField(verbose_name=_('Room status'),
+                                 default=True)
+    capacity = models.IntegerField(verbose_name=_('Room capacity'),
+                                   null=False)
+    minimum = models.IntegerField(verbose_name=_('Room capacity'),
+                                  null=False, default=1)
 
     class Meta:
         app_label = 'reserve'
-
-    def __repr__(self):
-        return self.__str__()
-
-    def __unicode__(self):
-        return self.__str__()
-
-    def __str__(self):
-        return self.start_time.isoformat()
+        ordering = ('title', )
+        verbose_name = _('post status')
+        verbose_name_plural = _('post statuses')
 
 
-class Card(models.Model):
-    visit_date = models.DateTimeField(null=False)
-    created_date = models.DateTimeField(null=False,
-                                        default=timezone.now)
-    person = models.OneToOneField('user.Person',
-                                  on_delete=models.SET_NULL,
-                                  null=True)
+class Seminar(AnonymousUser):
+    room = models.ForeignKey('Room',
+                             verbose_name=_('Which room'),
+                             on_delete=models.SET_NULL,
+                             null=True)
+    # phone from AnonymousUser
+    start_time = models.DateTimeField(verbose_name=_('Start time'),
+                                      null=False)
+    end_time = models.DateTimeField(verbose_name=_('End time'),
+                                    null=False)
+    # boss from AnonymousUser
+    member = models.ManyToManyField('account.AnonymousUser',
+                                    verbose_name=_('Members'),
+                                    related_name='member',
+                                    related_query_name='member')
 
     class Meta:
         app_label = 'reserve'
+        ordering = ('-start_time', '-end_time')
+        verbose_name = _('seminar reservation')
 
     def __repr__(self):
-        return self.__str__()
+        return f'{self.room.title}: {self.start_time} ~ {self.end_time}'
 
     def __unicode__(self):
-        return self.__str__()
+        return f'{self.room.title}: {self.start_time} ~ {self.end_time}'
 
     def __str__(self):
-        return self.visit_date.isoformat()
+        return f'{self.room.title}: {self.start_time} ~ {self.end_time}'
+
+
+class Card(AnonymousUser):
+    # phone from AnonymousUser
+    # name from AnonymousUser... although it is nickname ;(
+    visit_time = models.DateTimeField(verbose_name=_('Visit time'),
+                                      null=False)
+    created_time = models.DateTimeField(
+        verbose_name=_('Reservation submitted time'),
+        null=False
+    )
+
+    class Meta:
+        app_label = 'reserve'
+        ordering = ('-visit_time', )
+        verbose_name = _('card reservation')

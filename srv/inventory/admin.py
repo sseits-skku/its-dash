@@ -1,19 +1,30 @@
 from django.contrib import admin
-from .models import Room, Card, Seminar
+from .models import Computer, StockType, Stock, \
+                    OSType, StockStatus
 
 
-@admin.register(Room)
-class RoomAdmin(admin.ModelAdmin):
+@admin.register(Computer)
+class ComputerAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Card)
-class CardAdmin(admin.ModelAdmin):
+@admin.register(StockType)
+class StockTypeAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Seminar)
-class SeminarAdmin(admin.ModelAdmin):
+@admin.register(Stock)
+class StockAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(OSType)
+class OSTypeAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(StockStatus)
+class StockStatusAdmin(admin.ModelAdmin):
     pass
     """
     def name(instance):

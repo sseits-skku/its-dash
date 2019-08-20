@@ -1,21 +1,12 @@
 from django.contrib import admin
-from .models import Room, Card, Seminar
+from django.contrib.auth import get_user_model
 
 
-@admin.register(Room)
-class RoomAdmin(admin.ModelAdmin):
-    pass
+User = get_user_model()
 
 
-@admin.register(Card)
-class CardAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Seminar)
-class SeminarAdmin(admin.ModelAdmin):
-    pass
-    """
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
     def name(instance):
         return instance.last_name+instance.first_name
 
@@ -41,4 +32,3 @@ class SeminarAdmin(admin.ModelAdmin):
             'fields': ('is_active',)
         }),
     ]
-    """

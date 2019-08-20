@@ -1,0 +1,43 @@
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+
+class SharedCharField(models.CharField):
+    def __init__(self, vname=None, vnames=None, *args, **kwargs):
+        if vname:
+            kwargs['verbose_name'] = _(vname)
+        if not kwargs.get('max_length'):
+            kwargs['max_length'] = 255
+        super().__init__(*args, **kwargs)
+
+
+class MarkdownSnippet(models.Model):
+    content = models.TextField(verbose_name=_('Content'),
+                               blank=True)
+
+    class Meta:
+        abstract = True
+        verbose_name = _('content')
+
+    def __repr__(self):
+        return str(self.pk)
+
+    def __unicode__(self):
+        return str(self.pk)
+
+    def __str__(self):
+        return str(self.pk)
+
+
+class PlaceholderModel(models.Model):
+    class Meta:
+        abstract = True
+
+    def __repr__(self):
+        return self.title
+
+    def __unicode__(self):
+        return self.title
+
+    def __str__(self):
+        return self.title
