@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Permission
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 
@@ -12,7 +13,7 @@ class UserAdmin(admin.ModelAdmin):
 
     name.short_description = '이름'
 
-    list_display = ['id', 'username', 'nickname',
+    list_display = ['id', 'username', 'nickname', 
                     'date_joined', name, 'email',
                     'last_login', 'is_active', 'is_staff',
                     'is_superuser']
@@ -26,9 +27,14 @@ class UserAdmin(admin.ModelAdmin):
                        'last_name', 'email', 'password')
         }),
         ('권한 설정', {
-            'fields': ('is_staff', 'is_superuser',)
+            'fields': ('is_staff', 'is_superuser', 'groups')
         }),
         ('상태 설정', {
             'fields': ('is_active',)
         }),
     ]
+
+
+@admin.register(Permission)
+class PermissionAdmin(admin.ModelAdmin):
+    pass

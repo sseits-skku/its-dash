@@ -11,33 +11,9 @@ class SharedCharField(models.CharField):
         super().__init__(*args, **kwargs)
 
 
-class MarkdownSnippet(models.Model):
-    content = models.TextField(verbose_name=_('Content'),
-                               blank=True)
-
-    class Meta:
-        abstract = True
-        verbose_name = _('content')
-
-    def __repr__(self):
-        return str(self.pk)
-
-    def __unicode__(self):
-        return str(self.pk)
-
-    def __str__(self):
-        return str(self.pk)
-
-
 class PlaceholderModel(models.Model):
     class Meta:
         abstract = True
-
-    def __repr__(self):
-        return self.title
-
-    def __unicode__(self):
-        return self.title
 
     def __str__(self):
         return self.title

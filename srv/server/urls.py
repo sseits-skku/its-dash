@@ -15,15 +15,18 @@ Including another URLconf
 """
 from django.conf import settings
 from django.urls import path, include
+from django.conf.urls.static import static
 
 
 urlpatterns = [
+    path('auth/', include('djoser.urls.jwt')),
     path('account/', include('account.urls')),
     path('board/', include('board.urls')),
     path('inventory/', include('inventory.urls')),
     path('ip-table/', include('iptable.urls')),
     path('reserve/', include('reserve.urls')),
-]
+    path('content/', include('content.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     from django.contrib import admin
