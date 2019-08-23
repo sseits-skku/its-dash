@@ -28,6 +28,7 @@
           name="login"
           prepend-icon="mdi-account"
           type="text"
+          @keyup.enter.native="postLogin"
         />
         <v-text-field
           v-model="pw"
@@ -35,6 +36,7 @@
           name="password"
           prepend-icon="mdi-lock"
           type="password"
+          @keyup.enter.native="postLogin"
         />
       </v-card-text>
       <v-card-actions>
@@ -46,6 +48,7 @@
           rounded
           :loading="isPending"
           @click="postLogin"
+          @keyup.enter.native="postLogin"
         >
           <v-icon>mdi-send</v-icon>
         </v-btn>
@@ -79,14 +82,16 @@ export default {
       }).then((res) => {
         const { access, refresh } = res
         this.$store.commit('auth/setLogin', {
+          vuetify: this.$vuetify,
           username: this.id,
           refresh,
           access
         })
+        this.id = ''
+        this.pw = ''
       })
       this.diaOpen = false
       this.isPending = false
-      this.$vuetify.theme.dark = true
     }
   }
 }

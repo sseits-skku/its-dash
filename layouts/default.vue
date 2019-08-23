@@ -35,17 +35,6 @@ export default {
       isauth: false
     }
   },
-  created () {
-    this.$store.watch(state => state.drawerPerm, () => {
-      if (this.$store.state.auth.auth !== null) {
-        // this.$vuetify.theme.isDark = true
-        this.isauth = true
-      } else {
-        // this.$vuetify.theme.isDark = false
-        this.isauth = false
-      }
-    })
-  },
   beforeDestroy () {
     if (typeof window !== 'undefined') {
       window.removeEventListener('resize', this.onResize, { passive: true })
