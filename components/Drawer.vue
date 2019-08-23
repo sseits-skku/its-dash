@@ -1,8 +1,9 @@
 <template>
   <v-navigation-drawer
-    permanent
-    width="320px"
+    v-model="dOpen"
     app
+    :permanent="dPerm"
+    width="320px"
   >
     <v-toolbar
       color="teal lighten-1"
@@ -32,7 +33,7 @@
         <v-list-item
           v-for="subItem in item.items"
           :key="subItem.title"
-          @click="doNothing"
+          @click="goPage(subItem.id)"
         >
           <v-list-item-content>
             <v-list-item-title v-text="subItem.title" />
@@ -44,9 +45,28 @@
       </v-list-group>
     </v-list>
     <template v-slot:append>
-      <div class="pa-2">
+      <div
+        v-if="$store.state.auth.username === ''"
+        class="px-2 pb-2"
+      >
+        <v-btn color="secondary" block @click="goPage('/add')">
+          <v-icon left>mdi-lock-open</v-icon> REGISTRATION
+        </v-btn>
+      </div>
+      <div
+        v-if="$store.state.auth.username === ''"
+        class="px-2 pb-2"
+      >
         <v-btn color="primary" block @click="openDialog">
           <v-icon left>mdi-lock-open</v-icon> MEMBER LOGIN
+        </v-btn>
+      </div>
+      <div
+        v-if="$store.state.auth.username !== ''"
+        class="px-2 pb-2"
+      >
+        <v-btn color="primary" block @click="logout">
+          <v-icon left>mdi-logout-variant</v-icon> LOGOUT
         </v-btn>
       </div>
     </template>
@@ -62,56 +82,69 @@ export default {
           icon: 'mdi-account-supervisor-circle',
           title: 'SSE-ITS 소개',
           items: [
-            { id: 'about', title: 'SSE-ITS란?' },
-            { id: 'project', title: '프로젝트' },
-            { id: 'education', title: '교육자료' },
-            { id: 'recruit', title: '지원하기' }
+            { id: '/sseits', title: 'SSE-ITS란?' },
+            { id: '/sseits/project', title: '프로젝트' },
+            { id: '/sseits/education', title: '교육자료' },
+            { id: '/sseits/recruit', title: '지원하기' }
           ]
         },
         {
           icon: 'mdi-monitor-dashboard',
           title: '워크스테이션실',
           items: [
-            { id: 'notice', title: '공지사항' },
-            { id: 'dashboard', title: '현황 보기' },
-            { id: 'service', title: '건의 사항' }
+            { id: '/dashboard/notice', title: '공지사항' },
+            { id: '/dashboard', title: '현황 보기' },
+            { id: '/dashboard/service', title: '건의 사항' }
           ]
         },
         {
           icon: 'mdi-calendar-check',
           title: '예약하기',
           items: [
-            { id: 'room', title: '세미나실' },
-            { id: 'register', title: '학생증 등록' }
+            { id: '/reserve/seminar', title: '세미나실' },
+            { id: '/reserve/card', title: '학생증 등록' }
           ]
         }
       ]
     }
   },
   computed: {
+    dOpen: {
+      get () { return this.$store.state.drawerOpen },
+      set (value) { this.$store.commit('setDrawerOpen', value) }
+    },
+    dPerm: {
+      get () { return this.$store.state.drawerPerm },
+      set (value) { this.$store.commit('setDrawerPerm', value) }
+    },
     memberItems () {
       return this.guestItems.concat([
         {
           icon: 'mdi-incognito',
           title: '멤버전용 패널',
           items: [
-            { id: 'memberdash', title: '대시보드', icon: 'mdi-view-dashboard' },
-            { id: 'timetable', title: 'OH 시간표', icon: 'mdi-calendar' },
-            { id: 'gallery', title: '갤러리', icon: 'mdi-image-multiple' },
-            { id: 'agenda', title: '안건게시판', icon: 'mdi-gavel' },
-            { id: 'debt', title: '채무관계', icon: 'mdi-cash-100' },
-            { id: 'vote', title: '투표', icon: 'mdi-vote' }
+            { id: '/member/memberdash', title: '대시보드', icon: 'mdi-view-dashboard' },
+            { id: '/member/inventory', title: '비품 관리', icon: 'mdi-package-variant' },
+            { id: '/member/timetable', title: 'OH 시간표', icon: 'mdi-calendar' },
+            { id: '/member/gallery', title: '갤러리', icon: 'mdi-image-multiple' },
+            { id: '/member/agenda', title: '안건게시판', icon: 'mdi-gavel' },
+            { id: '/member/debt', title: '채무관계', icon: 'mdi-cash-100' },
+            { id: '/member/vote', title: '투표', icon: 'mdi-vote' }
           ]
         }
       ])
     }
   },
   methods: {
-    openDialog () {
-      // TODO: do something...
+    logout () {
+      this.$store.commit('auth/logout')
+      this.$vuetify.theme.dark = false
     },
-    doNothing () {
-      // TODO: do something...
+    openDialog () {
+      this.$store.commit('setLoginDialogOpen', true)
+    },
+    goPage (id) {
+      this.$router.push(id)
     }
   }
 }

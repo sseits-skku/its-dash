@@ -1,9 +1,10 @@
 <template>
   <v-app :dark="isauth">
     <Login />
+    <Toolbar />
     <Drawer />
     <v-content>
-      <v-container>
+      <v-container fluid fill-height>
         <nuxt />
       </v-container>
     </v-content>
@@ -14,6 +15,7 @@
 
 <script>
 import Snackbar from '@/components/Snackbar'
+import Toolbar from '@/components/Toolbar'
 import Drawer from '@/components/Drawer'
 import Footer from '@/components/Footer'
 import Login from '@/components/Login'
@@ -23,15 +25,18 @@ export default {
     Snackbar,
     Drawer,
     Footer,
-    Login
+    Login,
+    Toolbar
   },
   data () {
     return {
+      drawer: false,
+      dialog: false,
       isauth: false
     }
   },
   created () {
-    this.$store.watch(state => state.auth.auth, () => {
+    this.$store.watch(state => state.drawerPerm, () => {
       if (this.$store.state.auth.auth !== null) {
         // this.$vuetify.theme.isDark = true
         this.isauth = true
@@ -40,23 +45,27 @@ export default {
         this.isauth = false
       }
     })
-    /*
-    this.$store.watch(state => state.currentPage, (newVal, oldVal) => {
-      const existPage = [
-        'about', 'project', 'education', 'notice',
-        'dashboard', 'service', 'room', 'register',
-        'recruit', 'login', 'memberadd', 'memberdash',
-        'timetable', 'gallery', 'agenda', 'debt', 'vote'
-      ]
-      const page = this.$store.state.currentPage
-      console.log(`${newVal} => ${oldVal}`)
-      if (page in existPage) {
-        this.$router.push({ path: '/' + page })
+  },
+  beforeDestroy () {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize, { passive: true })
+    }
+  },
+  mounted () {
+    this.onResize()
+    window.addEventListener('resize', this.onResize, { passive: true })
+  },
+  methods: {
+    onResize () {
+      if (this.$vuetify.breakpoint.name === 'xs') {
+        this.$store.commit('setDrawerPerm', false)
+      } else if (this.$vuetify.breakpoint.name === 'sm') {
+        this.$store.commit('setDrawerPerm', false)
       } else {
-        this.$router.push({ path: '/' })
+        this.$store.commit('setDrawerPerm', true)
+        this.$store.commit('setDrawerOpen', true)
       }
-    })
-    */
+    }
   },
   head () {
     return this.$store.state.auth.auth === null

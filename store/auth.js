@@ -1,10 +1,19 @@
 export const state = () => ({
-  auth: null
+  username: '',
+  refreshToken: '',
+  accessToken: ''
 })
 
 export const mutations = {
-  setAuth (state, auth) {
-    state.auth.auth = auth
+  setLogin (state, auth) {
+    state.username = auth.username
+    state.refreshToken = auth.refresh
+    state.accessToken = auth.access
+  },
+  logout (state) {
+    state.username = ''
+    state.refreshToken = ''
+    state.accessToken = ''
   }
 }
 export const actions = {

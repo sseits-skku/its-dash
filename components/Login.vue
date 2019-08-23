@@ -1,9 +1,11 @@
 <template>
   <v-dialog
-    v-model="dialog"
+    v-model="diaOpen"
     width="480px"
   >
-    <v-card class="elevation-12">
+    <v-card
+      class="elevation-12"
+    >
       <v-toolbar
         color="primary"
         dark
@@ -14,26 +16,25 @@
         <v-btn
           color="red"
           rounded
-          @click="dialog = false"
+          @click="diaOpen = false"
         >
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
       <v-card-text>
         <v-text-field
-          :model="id"
+          v-model="id"
           label="Login"
           name="login"
           prepend-icon="mdi-account"
           type="text"
         />
         <v-text-field
-          id="password"
+          v-model="pw"
           label="Password"
           name="password"
           prepend-icon="mdi-lock"
           type="password"
-          :model="pw"
         />
       </v-card-text>
       <v-card-actions>
@@ -57,16 +58,35 @@
 <script>
 export default {
   data: () => ({
-    dialog: false,
     isPending: false,
     id: '',
     pw: ''
   }),
+  computed: {
+    diaOpen: {
+      get () { return this.$store.state.loginDialogOpen },
+      set (value) { this.$store.commit('setLoginDialogOpen', value) }
+    }
+  },
   created () {
   },
   methods: {
     postLogin () {
-      // TODO: login things...
+      this.isPending = true
+      this.$axios.$post('/auth/', {
+        username: this.id,
+        password: this.pw
+      }).then((res) => {
+        const { access, refresh } = res
+        this.$store.commit('auth/setLogin', {
+          username: this.id,
+          refresh,
+          access
+        })
+      })
+      this.diaOpen = false
+      this.isPending = false
+      this.$vuetify.theme.dark = true
     }
   }
 }

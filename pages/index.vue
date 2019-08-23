@@ -1,11 +1,12 @@
 <template>
-  <div />
+  <!-- Make your main page... -->
+  <v-img
+    src="/img/main.png"
+  />
 </template>
 
 <script>
 export default {
-  mounted () {
-    this.$router.push('/ko')
-  }
+  layout: 'default'
 }
 </script>
