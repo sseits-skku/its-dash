@@ -1,7 +1,7 @@
 <template>
   <!-- Make your main page... -->
   <v-img
-    src="/static/img/main.png"
+    src="/img/main.png"
   />
 </template>
 

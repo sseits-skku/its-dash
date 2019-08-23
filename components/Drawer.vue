@@ -60,29 +60,29 @@ export default {
       guestItems: [
         {
           icon: 'mdi-account-supervisor-circle',
-          title: this.$t('menu.sseits'),
+          title: 'SSE-ITS 소개',
           items: [
-            { id: 'about', title: this.$t('menu.about_us') },
-            { id: 'project', title: this.$t('menu.project') },
-            { id: 'education', title: this.$t('menu.education') },
-            { id: 'recruit', title: this.$t('menu.recruit') }
+            { id: 'about', title: 'SSE-ITS란?' },
+            { id: 'project', title: '프로젝트' },
+            { id: 'education', title: '교육자료' },
+            { id: 'recruit', title: '지원하기' }
           ]
         },
         {
           icon: 'mdi-monitor-dashboard',
-          title: this.$t('menu.dashtitle'),
+          title: '워크스테이션실',
           items: [
-            { id: 'notice', title: this.$t('menu.notice') },
-            { id: 'dashboard', title: this.$t('menu.dashboard') },
-            { id: 'service', title: this.$t('menu.suggest') }
+            { id: 'notice', title: '공지사항' },
+            { id: 'dashboard', title: '현황 보기' },
+            { id: 'service', title: '건의 사항' }
           ]
         },
         {
           icon: 'mdi-calendar-check',
-          title: this.$t('menu.reserve'),
+          title: '예약하기',
           items: [
-            { id: 'room', title: this.$t('menu.room') },
-            { id: 'register', title: this.$t('menu.register') }
+            { id: 'room', title: '세미나실' },
+            { id: 'register', title: '학생증 등록' }
           ]
         }
       ]
@@ -93,14 +93,14 @@ export default {
       return this.guestItems.concat([
         {
           icon: 'mdi-incognito',
-          title: this.$t('menu.membertitle'),
+          title: '멤버전용 패널',
           items: [
-            { id: 'memberdash', title: this.$t('menu.memberdash'), icon: 'mdi-view-dashboard' },
-            { id: 'timetable', title: this.$t('menu.timetable'), icon: 'mdi-calendar' },
-            { id: 'gallery', title: this.$t('menu.gallery'), icon: 'mdi-image-multiple' },
-            { id: 'agenda', title: this.$t('menu.agenda'), icon: 'mdi-gavel' },
-            { id: 'debt', title: this.$t('menu.debt'), icon: 'mdi-cash-100' },
-            { id: 'vote', title: this.$t('menu.vote'), icon: 'mdi-vote' }
+            { id: 'memberdash', title: '대시보드', icon: 'mdi-view-dashboard' },
+            { id: 'timetable', title: 'OH 시간표', icon: 'mdi-calendar' },
+            { id: 'gallery', title: '갤러리', icon: 'mdi-image-multiple' },
+            { id: 'agenda', title: '안건게시판', icon: 'mdi-gavel' },
+            { id: 'debt', title: '채무관계', icon: 'mdi-cash-100' },
+            { id: 'vote', title: '투표', icon: 'mdi-vote' }
           ]
         }
       ])

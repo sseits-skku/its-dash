@@ -58,13 +58,13 @@ export default {
       maxPageNum: 100,
       visibleNum: 10,
       head: [
-        { id: 'id', name: this.$t('ui.id') },
-        { id: 'type', name: this.$t('ui.type') },
-        { id: 'title', name: this.$t('ui.title') },
-        { id: 'author', name: this.$t('ui.author') },
-        { id: 'date', name: this.$t('ui.wrote_date') },
-        { id: 'hit', name: this.$t('ui.hit') },
-        { id: 'status', name: this.$t('ui.status') }
+        { id: 'id', name: '번호' },
+        { id: 'type', name: 'ui.type' },
+        { id: 'title', name: '제목' },
+        { id: 'author', name: '글쓴이' },
+        { id: 'date', name: '작성 날짜' },
+        { id: 'hit', name: '조회수' },
+        { id: 'status', name: '상태' }
       ],
       body: [
         // i18n not working because this is fake data.
@@ -80,7 +80,7 @@ export default {
         { id: 9, type: '일반', title: '안녕하세요_9', author: '이쁜이', date: new Date().toISOString().split('T')[0], hit: 128, status: 'resolved' },
         { id: 10, type: '일반', title: '안녕하세요_10', author: '이쁜이', date: new Date().toISOString().split('T')[0], hit: 129, status: 'resolved' }
       ],
-      write: { name: this.$t('ui.write_button') }
+      write: { name: '글 쓰기' }
     }
   }
 }

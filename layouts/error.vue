@@ -20,7 +20,7 @@
         justify="center"
       >
         <NuxtLink to="/">
-          <h2>{{ this.$t('error.main') }}</h2>
+          <h2>메인 화면으로</h2>
         </NuxtLink>
       </v-row>
     </v-col>

@@ -1,7 +1,7 @@
 <template>
   <!-- Make your introductions... -->
   <v-img
-    src="/static/img/aboutus.jpg"
+    src="/img/aboutus.jpg"
   />
 </template>
 
