@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet as mvs
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication as JWTAuth    # noqa: E501
+from rest_framework_simplejwt.authentication import JWTTokenUserAuthentication as JWTAuth    # noqa: E501
 
 from .models import IPAddress
 from .serializers import IPAddressSerializer

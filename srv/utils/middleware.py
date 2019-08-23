@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AnonymousUser
 from rest_framework import exceptions
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication as JWTAuth
+from rest_framework_simplejwt.authentication import JWTTokenUserAuthentication as JWTAuth
 
 
 def jwt_auth_middleware(get_response):

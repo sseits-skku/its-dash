@@ -58,4 +58,5 @@ class User(AbstractUser):
         app_label = 'account'
 
     def save(self, *args, **kwargs):
+        self.set_password(self.password)
         super().save(*args, **kwargs)
