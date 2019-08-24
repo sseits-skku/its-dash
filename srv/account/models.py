@@ -50,6 +50,14 @@ class User(AbstractUser):
     phone_num = models.CharField(verbose_name=_('Phone number'),
                                  max_length=255,
                                  null=True, blank=True)
+    is_active = models.BooleanField(
+        _('active'),
+        default=False,
+        help_text=_(
+            'Designates whether this user should be treated as active. '
+            'Unselect this instead of deleting accounts.'
+        ),
+    )
 
     objects = UserManager()
     USERNAME_FIELD = 'username'
@@ -58,5 +66,4 @@ class User(AbstractUser):
         app_label = 'account'
 
     def save(self, *args, **kwargs):
-        self.set_password(self.password)
         super().save(*args, **kwargs)
