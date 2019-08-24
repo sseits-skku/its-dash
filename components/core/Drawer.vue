@@ -177,7 +177,7 @@ export default {
       this.$store.commit('setLoginDialogOpen', true)
     },
     goPage (id) {
-      this.$router.push(id)
+      this.$router.push(id).catch(() => {})
     }
   }
 }

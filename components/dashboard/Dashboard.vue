@@ -1,21 +1,17 @@
 <template>
-  <v-container
-    app
-    fill-height
-    fluid
-  >
+  <v-container fluid fill-height>
     <v-layout
       justify-center
       align-center
     >
       <v-col
-        v-if="$vuetify.breakpoint.xs"
+        v-show="$vuetify.breakpoint.xs"
         class="display-2 font-weight-bold text-center"
       >
         화면이 너무 작아서 대시보드를 사용할 수 없습니다.
       </v-col>
       <v-col
-        v-if="$vuetify.breakpoint.smAndUp"
+        v-show="$vuetify.breakpoint.smAndUp"
       >
         <v-flex
           row
@@ -26,7 +22,7 @@
               class="grey lighten-1 mb-4"
               :ripple="false"
               text
-              @click="isClicked = !isClicked"
+              @click.native="isClicked = !isClicked"
             >
               칠판
             </v-btn>

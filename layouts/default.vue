@@ -15,11 +15,11 @@
 
 <script>
 import Cookie from 'js-cookie'
-import Snackbar from '@/components/Snackbar'
-import Toolbar from '@/components/Toolbar'
-import Drawer from '@/components/Drawer'
-import Footer from '@/components/Footer'
-import Login from '@/components/Login'
+import Snackbar from '@/components/core/Snackbar'
+import Toolbar from '@/components/core/Toolbar'
+import Drawer from '@/components/core/Drawer'
+import Footer from '@/components/core/Footer'
+import Login from '@/components/core/Login'
 // TODO: Pagination 어떻게 처리할지 고민해보기.
 export default {
   components: {
