@@ -77,6 +77,22 @@
 export default {
   data () {
     return {
+      menuItems: [],
+      memberItems: [
+        {
+          icon: 'mdi-incognito',
+          title: '멤버전용 패널',
+          items: [
+            { id: '/member/memberdash', title: '대시보드', icon: 'mdi-view-dashboard' },
+            { id: '/member/inventory', title: '비품 관리', icon: 'mdi-package-variant' },
+            { id: '/member/timetable', title: 'OH 시간표', icon: 'mdi-calendar' },
+            { id: '/member/gallery', title: '갤러리', icon: 'mdi-image-multiple' },
+            { id: '/member/agenda', title: '안건게시판', icon: 'mdi-gavel' },
+            { id: '/member/debt', title: '채무관계', icon: 'mdi-cash-100' },
+            { id: '/member/vote', title: '투표', icon: 'mdi-vote' }
+          ]
+        }
+      ],
       guestItems: [
         {
           icon: 'mdi-account-supervisor-circle',
@@ -116,24 +132,10 @@ export default {
     dPerm: {
       get () { return this.$store.state.drawerPerm },
       set (value) { this.$store.commit('setDrawerPerm', value) }
-    },
-    memberItems () {
-      return this.guestItems.concat([
-        {
-          icon: 'mdi-incognito',
-          title: '멤버전용 패널',
-          items: [
-            { id: '/member/memberdash', title: '대시보드', icon: 'mdi-view-dashboard' },
-            { id: '/member/inventory', title: '비품 관리', icon: 'mdi-package-variant' },
-            { id: '/member/timetable', title: 'OH 시간표', icon: 'mdi-calendar' },
-            { id: '/member/gallery', title: '갤러리', icon: 'mdi-image-multiple' },
-            { id: '/member/agenda', title: '안건게시판', icon: 'mdi-gavel' },
-            { id: '/member/debt', title: '채무관계', icon: 'mdi-cash-100' },
-            { id: '/member/vote', title: '투표', icon: 'mdi-vote' }
-          ]
-        }
-      ])
     }
+  },
+  created () {
+    this.$store.watch(state => state.auth.isStaff, () => {})
   },
   methods: {
     logout () {

@@ -74,24 +74,29 @@ export default {
   created () {
   },
   methods: {
-    postLogin () {
+    async postLogin () {
       this.isPending = true
-      this.$axios.$post('/auth/', {
-        username: this.id,
-        password: this.pw
-      }).then((res) => {
-        const { access, refresh } = res
+      try {
+        const { access, refresh } = await this.$axios.$post('/auth/', {
+          username: this.id,
+          password: this.pw
+        })
+        const userId = JSON.parse(atob(access.split('.')[1])).user_id
+        const isStaff = await this.$axios.$get(`/account/user/${userId}`)
         this.$store.commit('auth/setLogin', {
           vuetify: this.$vuetify,
           username: this.id,
           refresh,
-          access
+          access,
+          isStaff
         })
         this.id = ''
         this.pw = ''
-      })
-      this.diaOpen = false
-      this.isPending = false
+        this.diaOpen = false
+        this.isPending = false
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }
