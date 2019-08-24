@@ -13,9 +13,14 @@ class OwnerMixin(models.Model):
 
 class IsOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
-        return bool(request.user and
-                    request.user.is_authenticated and
-                    request.user == obj.owner)
+        try:
+            return bool(request.user and
+                        request.user.is_authenticated and
+                        request.user == obj.owner)
+        except AttributeError:
+            return bool(request.user and
+                        request.user.is_authenticated and
+                        request.user.pk == obj.pk)
 
 
 class IsAdminUser(BasePermission):
