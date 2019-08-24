@@ -11,14 +11,20 @@
       height="80px"
     >
       <v-spacer />
-      <v-btn class="elevation-0" color="transparent" :ripple="false" large>
+      <v-btn
+        class="elevation-0"
+        color="transparent"
+        :ripple="false"
+        large
+        @click.native="goPage('/')"
+      >
         <div class="display-1">SSE-ITS</div>
       </v-btn>
       <v-spacer />
     </v-toolbar>
     <v-list>
       <v-list-group
-        v-for="item in memberItems"
+        v-for="item in guestItems"
         :key="item.title"
         v-model="item.active"
         :prepend-icon="item.icon"
@@ -43,6 +49,36 @@
           </v-list-item-action>
         </v-list-item>
       </v-list-group>
+      <template
+        v-if="$store.state.auth.isStaff"
+      >
+        <v-list-group
+          v-for="item in memberItems"
+          :key="item.title"
+          v-model="item.active"
+          :prepend-icon="item.icon"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title" />
+            </v-list-item-content>
+          </template>
+
+          <v-list-item
+            v-for="subItem in item.items"
+            :key="subItem.title"
+            @click="goPage(subItem.id)"
+          >
+            <v-list-item-content>
+              <v-list-item-title v-text="subItem.title" />
+            </v-list-item-content>
+            <v-list-item-action v-if="'icon' in subItem">
+              <v-icon v-text="subItem.icon" />
+            </v-list-item-action>
+          </v-list-item>
+        </v-list-group>
+      </template>
     </v-list>
     <template v-slot:append>
       <div
@@ -77,7 +113,6 @@
 export default {
   data () {
     return {
-      menuItems: [],
       memberItems: [
         {
           icon: 'mdi-incognito',
@@ -134,9 +169,6 @@ export default {
       set (value) { this.$store.commit('setDrawerPerm', value) }
     }
   },
-  created () {
-    this.$store.watch(state => state.auth.isStaff, () => {})
-  },
   methods: {
     logout () {
       this.$store.commit('auth/logout', this.$vuetify)
@@ -156,55 +188,3 @@ export default {
   background-color: black;
 }
 </style>
-<!--
-<template>
-  <v-navigation-drawer
-    v-if="drawer"
-    permanent
-  >
-    <v-list
-      dense
-    >
-      <v-list-item
-        v-for="(item, index) in items"
-        :key="index"
-        :to="{path: '/' + item.id}"
-      >
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-  </v-navigation-drawer>
-</template>
-
-<script>
-export default {
-  data () {
-    return {
-      drawer: false,
-      items: [
-        { id: 'memberdash', title: 'DASHBOARD', icon: 'mdi-view-dashboard' },
-        { id: 'timetable', title: 'OH 시간표', icon: 'mdi-calendar' },
-        { id: 'gallery', title: '갤러리', icon: 'mdi-image-multiple' },
-        { id: 'agenda', title: '안건 게시판', icon: 'mdi-gavel' },
-        { id: 'debt', title: '채무 관계', icon: 'mdi-cash-100' },
-        { id: 'vote', title: '투표', icon: 'mdi-vote' }
-      ]
-    }
-  },
-  created () {
-    this.$store.watch(state => state.auth.auth, () => {
-      if (this.$store.state.auth.auth !== null) {
-        this.drawer = true
-      } else {
-        this.drawer = false
-      }
-    })
-  }
-}
-</script>
--->

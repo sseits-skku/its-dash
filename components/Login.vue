@@ -82,13 +82,14 @@ export default {
           password: this.pw
         })
         const userId = JSON.parse(atob(access.split('.')[1])).user_id
-        const isStaff = await this.$axios.$get(`/account/user/${userId}`)
+        this.$axios.setHeader('Authorization', 'Bearer ' + access)
+        const info = await this.$axios.$get(`/account/user/${userId}`)
         this.$store.commit('auth/setLogin', {
           vuetify: this.$vuetify,
           username: this.id,
           refresh,
           access,
-          isStaff
+          isStaff: !!(info.is_staff | info.is_superuser)
         })
         this.id = ''
         this.pw = ''

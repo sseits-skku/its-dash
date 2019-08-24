@@ -1,3 +1,5 @@
+import Cookie from 'js-cookie'
+
 export const state = () => ({
   username: '',
   refreshToken: '',
@@ -14,6 +16,12 @@ export const mutations = {
     if (auth.isStaff) {
       auth.vuetify.theme.dark = true
     }
+    Cookie.set('Authorization', {
+      username: auth.username,
+      isStaff: auth.isStaff,
+      refresh: auth.refresh,
+      access: auth.access
+    })
   },
   logout (state, vuetify) {
     state.username = ''
@@ -21,6 +29,7 @@ export const mutations = {
     state.accessToken = ''
     state.isStaff = false
     vuetify.theme.dark = false
+    Cookie.remove('Authorization')
   }
 }
 export const actions = {
