@@ -1,6 +1,8 @@
 from django.db import models
 from rest_framework.permissions import BasePermission
 
+from account.models import User
+
 
 class OwnerMixin(models.Model):
     owner = models.ForeignKey('account.User',
@@ -13,31 +15,37 @@ class OwnerMixin(models.Model):
 
 class IsOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
+        # Because request has TokenUser, not User...
+        # We should provide from this information.
         try:
-            return bool(request.user and
-                        request.user.is_authenticated and
-                        request.user == obj.owner)
+            u = User.objects.get(pk=request.user.pk)
+            return bool(u.is_authenticated and
+                        u == obj.owner)
+        except User.DoesNotExist:
+            return False
         except AttributeError:
-            return bool(request.user and
-                        request.user.is_authenticated and
-                        request.user.pk == obj.pk)
+            return bool(u.is_authenticated and
+                        u.pk == obj.pk)
 
 
 class IsAdminUser(BasePermission):
-    """
-    Allows access only to admin users.
-    """
-
     def has_permission(self, request, view):
-        return bool(request.user and
-                    request.user.is_staff and
-                    request.user.is_superuser)
+        # Because request has TokenUser, not User...
+        # We should provide from this information.
+        try:
+            u = User.objects.get(pk=request.user.pk)
+            return bool(u.is_staff and
+                        u.is_superuser)
+        except User.DoesNotExist:
+            return False
 
 
 class IsStaffUser(BasePermission):
-    """
-    Allows access only to admin users.
-    """
-
     def has_permission(self, request, view):
-        return bool(request.user and request.user.is_staff)
+        # Because request has TokenUser, not User...
+        # We should provide from this information.
+        try:
+            u = User.objects.get(pk=request.user.pk)
+            return bool(u.is_staff)
+        except User.DoesNotExist:
+            return False
