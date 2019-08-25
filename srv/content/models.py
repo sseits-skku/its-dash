@@ -2,22 +2,31 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+import os
 import uuid
 
 from utils.permissions import OwnerMixin
 
 
+def get_file_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{ext}'
+    return os.path.join('media/', filename)
+
+
 class Content(models.Model):
-    content_id = models.UUIDField(verbose_name=_('Content UUID Field'),
-                                  default=uuid.uuid4,
-                                  primary_key=True,
-                                  editable=False)
-    member_only = models.BooleanField(verbose_name=_('Content for member only'),
-                                      default=False)
-    created_date = models.DateTimeField(verbose_name=_('Content created date'),
-                                        auto_now_add=timezone.now)
-    modified_date = models.DateTimeField(verbose_name=_('Content modified date'),
-                                         auto_now=timezone.now)
+    member_only = models.BooleanField(
+        verbose_name=_('Content for member only'),
+        default=False
+    )
+    created_date = models.DateTimeField(
+        verbose_name=_('Content created date'),
+        auto_now_add=timezone.now
+    )
+    modified_date = models.DateTimeField(
+        verbose_name=_('Content modified date'),
+        auto_now=timezone.now
+    )
 
     class Meta:
         app_label = 'content'
@@ -25,18 +34,19 @@ class Content(models.Model):
         ordering = ('-created_date', )
         verbose_name = _('content')
 
-    def __str__(self):
-        return str(self.content_id)
-
 
 class ImageContent(Content, OwnerMixin):
-    image = models.ImageField(verbose_name=_('Image'),
+    image = models.ImageField(upload_to=get_file_path,
+                              verbose_name=_('Image'),
                               blank=True)
 
     class Meta:
         app_label = 'content'
         ordering = ('-created_date', )
         verbose_name = _('image content')
+
+    def __str__(self):
+        return str(self.image.name)
 
 
 class FileContent(Content, OwnerMixin):
@@ -49,6 +59,9 @@ class FileContent(Content, OwnerMixin):
         app_label = 'content'
         ordering = ('-created_date', )
         verbose_name = _('file content')
+
+    def __str__(self):
+        return str(self.file.name)
 
 
 class TextSnippet(Content):

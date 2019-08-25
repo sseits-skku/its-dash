@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from account.models import PasswordMixin
 from utils.permissions import OwnerMixin
 from utils.placeholder_models import PlaceholderModel, SharedCharField
 
@@ -24,7 +23,7 @@ class Room(PlaceholderModel):
         verbose_name_plural = _('room statuses')
 
 
-class Seminar(PasswordMixin, OwnerMixin):
+class Seminar(OwnerMixin):
     room = models.ForeignKey('Room',
                              verbose_name=_('Which room'),
                              on_delete=models.SET_NULL,
@@ -56,9 +55,7 @@ class Seminar(PasswordMixin, OwnerMixin):
         return f'{self.room.title}: {self.start_time} ~ {self.end_time}'
 
 
-class Card(PasswordMixin, OwnerMixin):
-    # phone from AnonymousUser
-    # name from AnonymousUser... although it is nickname ;(
+class Card(OwnerMixin):
     visit_time = models.DateTimeField(verbose_name=_('Visit time'),
                                       null=False)
     created_time = models.DateTimeField(

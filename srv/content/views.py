@@ -5,6 +5,7 @@ from rest_framework.permissions import (
 
 from .models import FileContent, ImageContent
 from .serializers import FileContentSerializer, ImageContentSerializer
+from account.models import User
 from utils.permissions import (
     IsOwner, IsStaffUser
 )
@@ -15,9 +16,12 @@ class ImageContentViewSet(mvs):
     serializer_class = ImageContentSerializer
 
     def get_attribute(self, instance):
-        print(f"{instance.member_only}/{self.context['request'].user.is_staff}")
-        if not instance.member_only or self.context['request'].user.is_staff:
-            return super(FileContentViewSet, self).get_attribute(instance)
+        try:
+            u = User.objects.get(pk=self.context['request'].user.pk).is_staff
+        except User.DoesNotExist:
+            u = False
+        if not instance.member_only or u:
+            return super(ImageContentViewSet, self).get_attribute(instance)
         return None
 
     def get_permissions(self):
@@ -37,7 +41,11 @@ class FileContentViewSet(mvs):
     serializer_class = FileContentSerializer
 
     def get_attribute(self, instance):
-        if not instance.member_only or self.context['request'].user.is_staff:
+        try:
+            u = User.objects.get(pk=self.context['request'].user.pk).is_staff
+        except User.DoesNotExist:
+            u = False
+        if not instance.member_only or u:
             return super(FileContentViewSet, self).get_attribute(instance)
         return None
 

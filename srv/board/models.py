@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from account.models import PasswordMixin
 from content.models import TextSnippet
 from utils.permissions import OwnerMixin
 from utils.placeholder_models import PlaceholderModel, SharedCharField
@@ -44,7 +43,7 @@ class PostStatus(PlaceholderModel):
         verbose_name_plural = _('post statuses')
 
 
-class Comment(PasswordMixin, OwnerMixin, TextSnippet):
+class Comment(OwnerMixin, TextSnippet):
     # content from TextSnippet
     # password from AnonymousUser
     ip_addr = models.GenericIPAddressField(verbose_name=_('Wrote IP Address'))
@@ -62,15 +61,13 @@ class Comment(PasswordMixin, OwnerMixin, TextSnippet):
         verbose_name = _('comment')
 
 
-class Post(PasswordMixin, OwnerMixin, TextSnippet):
+class Post(OwnerMixin, TextSnippet):
     title = SharedCharField(vname='Post title',
                             null=False, blank=False)
     # content from TextSnippet
-    # password from AnonymousUser
     ip_addr = models.GenericIPAddressField(verbose_name=_('Wrote IP Address'))
     deleted = models.BooleanField(verbose_name=_('Is deleted'),
                                   default=False)
-    # nickname from AnonymousUser
     status = models.ForeignKey('PostStatus',
                                verbose_name=_('Post status'),
                                on_delete=models.SET_NULL,
@@ -99,3 +96,6 @@ class Post(PasswordMixin, OwnerMixin, TextSnippet):
         app_label = 'board'
         ordering = ('-created_date', )
         verbose_name = _('post')
+
+    def __str__(self):
+        return self.title

@@ -17,12 +17,12 @@ class IsOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
         # Because request has TokenUser, not User...
         # We should provide from this information.
-        if not request.user:
-            return False
-        u = User.objects.get(pk=request.user.pk)
         try:
+            u = User.objects.get(pk=request.user.pk)
             return bool(u.is_authenticated and
                         u == obj.owner)
+        except User.DoesNotExist:
+            return False
         except AttributeError:
             return bool(u.is_authenticated and
                         u.pk == obj.pk)
@@ -32,18 +32,20 @@ class IsAdminUser(BasePermission):
     def has_permission(self, request, view):
         # Because request has TokenUser, not User...
         # We should provide from this information.
-        if not request.user:
+        try:
+            u = User.objects.get(pk=request.user.pk)
+            return bool(u.is_staff and
+                        u.is_superuser)
+        except User.DoesNotExist:
             return False
-        u = User.objects.get(pk=request.user.pk)
-        return bool(u.is_staff and
-                    u.is_superuser)
 
 
 class IsStaffUser(BasePermission):
     def has_permission(self, request, view):
         # Because request has TokenUser, not User...
         # We should provide from this information.
-        if not request.user:
+        try:
+            u = User.objects.get(pk=request.user.pk)
+            return bool(u.is_staff)
+        except User.DoesNotExist:
             return False
-        u = User.objects.get(pk=request.user.pk)
-        return bool(u.is_staff)
