@@ -25,6 +25,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    { src: '~/node_modules/highlight.js/styles/nord.css', lang: 'css' }
   ],
   /*
   ** Plugins to load before mounting the App
@@ -42,7 +43,8 @@ module.exports = {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'/*,
+    '@nuxtjs/axios',
+    '@nuxtjs/markdownit'/*,
     '@nuxtjs/pwa' */
   ],
   /*
@@ -53,6 +55,16 @@ module.exports = {
     baseURL: 'http://localhost:8000'
   },
   proxy: {
+  },
+  markdownit: {
+    preset: 'commonmark',
+    injected: true,
+    linkify: false,
+    breaks: true,
+    use: [
+      'markdown-it-emoji',
+      'markdown-it-highlightjs'
+    ]
   },
   vue: {
     config: {

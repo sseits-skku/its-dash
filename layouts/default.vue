@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import Cookie from 'js-cookie'
 import Snackbar from '@/components/core/Snackbar'
 import Toolbar from '@/components/core/Toolbar'
 import Drawer from '@/components/core/Drawer'
@@ -41,41 +40,8 @@ export default {
       window.removeEventListener('resize', this.onResize, { passive: true })
     }
   },
-  async mounted () {
-    try {
-      const cAuth = Cookie.get('Authorization')
-      if (typeof cAuth === 'undefined') {
-        throw new TypeError('failed.')
-      }
-      const auth = JSON.parse(cAuth)
-      const resAccess = await this.$axios.$post('/auth/verify', {
-        token: auth.access
-      })
-      const resRefresh = await this.$axios.$post('/auth/verify', {
-        token: auth.refresh
-      })
-      if (Object.entries(resRefresh).length === 0 &&
-          resRefresh.constructor === Object) {
-      // refresh token is valid.
-        if (Object.entries(resAccess).length !== 0 &&
-            resAccess.constructor === Object) {
-        // access token is NOT valid.
-          const { access, refresh } = await this.$axios.$post(
-            '/auth/refresh',
-            { refresh: auth.refresh }
-          )
-          auth.refresh = refresh
-          auth.access = access
-        }
-        auth.vuetify = this.$vuetify
-        this.$store.commit('auth/setLogin', auth)
-      } else {
-        throw new TypeError('failed. ff')
-      }
-    } catch (err) {
-      // invalid cookie and logout.
-      this.$store.commit('auth/logout', this.$vuetify)
-    }
+  mounted () {
+    this.$store.dispatch('auth/checkLogin', this.$vuetify)
     this.onResize()
     window.addEventListener('resize', this.onResize, { passive: true })
   },
