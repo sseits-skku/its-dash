@@ -3,13 +3,13 @@
     v-model="show"
     :timeout="5000"
     :top="true"
-    :success="type === 'success'"
-    :info="type === 'info'"
-    :warning="type === 'warning'"
-    :error="type === 'error'"
+    :success="$store.state.snackbar.type === 'success'"
+    :info="$store.state.snackbar.type === 'info'"
+    :warning="$store.state.snackbar.type === 'warning'"
+    :error="$store.state.snackbar.type === 'error'"
   >
-    {{ message }}
-    <v-btn flat @click.native="show = false">Close</v-btn>
+    {{ $store.state.snackbar.snack }}
+    <v-btn @click.native="show = false">Close</v-btn>
   </v-snackbar>
 </template>
 
@@ -17,19 +17,14 @@
 export default {
   data () {
     return {
-      show: false,
-      type: '',
-      message: ''
+      show: false
     }
   },
   created () {
     this.$store.watch(state => state.snackbar.snack, () => {
-      const type = this.$store.state.snackbar.type
       const msg = this.$store.state.snackbar.snack
       if (msg !== '') {
         this.show = true
-        this.type = type
-        this.message = msg
         this.$store.commit('snackbar/setSnack', '', '')
       }
     })
