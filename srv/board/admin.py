@@ -15,7 +15,7 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'title', 'content_type', 'category']
 
 
 @admin.register(PostStatus)
