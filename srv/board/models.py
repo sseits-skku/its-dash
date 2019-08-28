@@ -19,6 +19,9 @@ class Category(PlaceholderModel):
         verbose_name = _('category')
         verbose_name_plural = _('categories')
 
+    def __str__(self):
+        return self.title
+
 
 class Tag(PlaceholderModel):
     title = SharedCharField(vname='Tag name',
@@ -29,6 +32,9 @@ class Tag(PlaceholderModel):
         app_label = 'board'
         ordering = ('title', )
         verbose_name = _('tag')
+
+    def __str__(self):
+        return self.title
 
 
 class PostStatus(PlaceholderModel):
@@ -43,6 +49,9 @@ class PostStatus(PlaceholderModel):
         ordering = ('title', )
         verbose_name = _('post status')
         verbose_name_plural = _('post statuses')
+
+    def __str__(self):
+        return self.title
 
 
 class Comment(OwnerMixin, TextSnippet):
@@ -64,6 +73,9 @@ class Comment(OwnerMixin, TextSnippet):
         app_label = 'board'
         ordering = ('-created_date', )
         verbose_name = _('comment')
+
+    def __str__(self):
+        return self.summary
 
     def delete(self, *args, **kwargs):
         # Fake deletion.
