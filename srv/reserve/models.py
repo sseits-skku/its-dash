@@ -54,6 +54,14 @@ class Seminar(OwnerMixin):
     def __str__(self):
         return f'{self.room.title}: {self.start_time} ~ {self.end_time}'
 
+    def delete(self, *args, **kwargs):
+        # Fake deletion.
+        self.deleted = True
+        self.save()
+
+    def _delete(self, *args, **kwargs):
+        super().delete()
+
 
 class Card(OwnerMixin):
     visit_time = models.DateTimeField(verbose_name=_('Visit time'),
@@ -69,3 +77,11 @@ class Card(OwnerMixin):
         app_label = 'reserve'
         ordering = ('-visit_time', )
         verbose_name = _('card reservation')
+
+    def delete(self, *args, **kwargs):
+        # Fake deletion.
+        self.deleted = True
+        self.save()
+
+    def _delete(self, *args, **kwargs):
+        super().delete()
