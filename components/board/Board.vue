@@ -35,7 +35,7 @@
       <v-flex>
         <v-row>
           <v-spacer />
-          <v-btn color="green lighten-4">{{ write.name }}</v-btn>
+          <v-btn color="green lighten-4">글 쓰기</v-btn>
         </v-row>
       </v-flex>
     </v-container>
@@ -59,7 +59,7 @@ export default {
       visibleNum: 10,
       head: [
         { id: 'id', name: '번호' },
-        { id: 'type', name: 'ui.type' },
+        { id: 'type', name: '타입' },
         { id: 'title', name: '제목' },
         { id: 'author', name: '글쓴이' },
         { id: 'date', name: '작성 날짜' },
@@ -67,8 +67,6 @@ export default {
         { id: 'status', name: '상태' }
       ],
       body: [
-        // i18n not working because this is fake data.
-        // Also not working on real data because that can't be translated.
         { id: 1, type: '일반', title: '안녕하세요_1', author: '이쁜이', date: new Date().toISOString().split('T')[0], hit: 120, status: 'resolved' },
         { id: 2, type: '일반', title: '안녕하세요_2', author: '이쁜이', date: new Date().toISOString().split('T')[0], hit: 121, status: 'resolved' },
         { id: 3, type: '일반', title: '안녕하세요_3', author: '이쁜이', date: new Date().toISOString().split('T')[0], hit: 122, status: 'resolved' },
@@ -79,9 +77,12 @@ export default {
         { id: 8, type: '일반', title: '안녕하세요_8', author: '이쁜이', date: new Date().toISOString().split('T')[0], hit: 127, status: 'resolved' },
         { id: 9, type: '일반', title: '안녕하세요_9', author: '이쁜이', date: new Date().toISOString().split('T')[0], hit: 128, status: 'resolved' },
         { id: 10, type: '일반', title: '안녕하세요_10', author: '이쁜이', date: new Date().toISOString().split('T')[0], hit: 129, status: 'resolved' }
-      ],
-      write: { name: '글 쓰기' }
+      ]
     }
+  },
+  async asyncData({ $axios }) {
+    $axios.$post('/board/post')
+    return {}
   }
 }
 </script>

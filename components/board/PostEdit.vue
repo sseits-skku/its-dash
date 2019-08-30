@@ -210,7 +210,7 @@ export default {
       try {
         const categories = this.$axios.$get('/board/category/')
         console.log(await categories)
-        const curIP = '0.0.0.0'
+        const curIP = '0.0.0.0' // TODO: should be fixed.
         const owner = JSON.parse(
           atob(auth.access.split('.')[1])
         ).user_id

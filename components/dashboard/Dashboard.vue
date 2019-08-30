@@ -98,9 +98,6 @@ export default {
     )
   },
   methods: {
-    postLogin () {
-      // TODO: login things...
-    }
   }
 }
 </script>
