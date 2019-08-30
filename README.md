@@ -1,22 +1,10 @@
 # its-dash
-
 > A Dashboard for SSE-ITS
-
-## Build Setup
-
-``` bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Important Notice
+This project is currently not maintained due to change of plan.
+If you want to see further works, please go to these links:
+>  [SKKU SSE-ITS Website (Frontend)](https://github.com/sseits-skku/itsweb)
+>  [SKKU SSE-ITS Website (Backend)](https://github.com/sseits-skku/its-backend)
+>  [SKKU SSE Reservation service (Frontend)](https://github.com/sseits-skku/yeyag)
+>  [SKKU SSE Reservation service (Backend)](https://github.com/sseits-skku/yeyag)
+>  [SKKU SSE Workstation Dashboard (Frontend)](https://github.com/sseits-skku/dashboard)
