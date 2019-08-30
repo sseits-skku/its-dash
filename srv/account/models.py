@@ -33,6 +33,15 @@ class User(AbstractUser):
 
     class Meta:
         app_label = 'account'
+        ordering = ('-date_joined', )
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        # Fake deletion.
+        self.is_active = False
+        self.save()
+
+    def _delete(self, *args, **kwargs):
+        super().delete()

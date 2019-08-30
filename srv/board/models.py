@@ -10,12 +10,17 @@ class Category(PlaceholderModel):
     title = SharedCharField(vname='Category name',
                             unique=True,
                             null=False, blank=False)
+    member_only = models.BooleanField(verbose_name=_('Is member-only?'),
+                                      default=True)
 
     class Meta:
         app_label = 'board'
         ordering = ('title', )
         verbose_name = _('category')
         verbose_name_plural = _('categories')
+
+    def __str__(self):
+        return self.title
 
 
 class Tag(PlaceholderModel):
@@ -27,6 +32,9 @@ class Tag(PlaceholderModel):
         app_label = 'board'
         ordering = ('title', )
         verbose_name = _('tag')
+
+    def __str__(self):
+        return self.title
 
 
 class PostStatus(PlaceholderModel):
@@ -42,10 +50,16 @@ class PostStatus(PlaceholderModel):
         verbose_name = _('post status')
         verbose_name_plural = _('post statuses')
 
+    def __str__(self):
+        return self.title
+
 
 class Comment(OwnerMixin, TextSnippet):
     # content from TextSnippet
     # password from AnonymousUser
+    summary = models.CharField(verbose_name=_('Comment summary'),
+                               max_length=255,
+                               default='')
     ip_addr = models.GenericIPAddressField(verbose_name=_('Wrote IP Address'))
     deleted = models.BooleanField(verbose_name=_('Is deleted'),
                                   default=False)
@@ -59,6 +73,17 @@ class Comment(OwnerMixin, TextSnippet):
         app_label = 'board'
         ordering = ('-created_date', )
         verbose_name = _('comment')
+
+    def __str__(self):
+        return self.summary
+
+    def delete(self, *args, **kwargs):
+        # Fake deletion.
+        self.deleted = True
+        self.save()
+
+    def _delete(self, *args, **kwargs):
+        super().delete()
 
 
 class Post(OwnerMixin, TextSnippet):
@@ -99,3 +124,11 @@ class Post(OwnerMixin, TextSnippet):
 
     def __str__(self):
         return self.title
+
+    def delete(self, *args, **kwargs):
+        # Fake deletion.
+        self.deleted = True
+        self.save()
+
+    def _delete(self, *args, **kwargs):
+        super().delete()

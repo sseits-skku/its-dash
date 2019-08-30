@@ -27,12 +27,22 @@ class Content(models.Model):
         verbose_name=_('Content modified date'),
         auto_now=timezone.now
     )
+    deleted = models.BooleanField(verbose_name=_('Is deleted?'),
+                                  default=False)
 
     class Meta:
         app_label = 'content'
         abstract = True
         ordering = ('-created_date', )
         verbose_name = _('content')
+
+    def delete(self, *args, **kwargs):
+        # Fake deletion.
+        self.deleted = True
+        self.save()
+
+    def _delete(self, *args, **kwargs):
+        super().delete()
 
 
 class ImageContent(Content, OwnerMixin):
