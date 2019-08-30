@@ -11,6 +11,6 @@ If you want to see further works, please go to these links:
 
 [SKKU SSE Reservation service (Frontend)](https://github.com/sseits-skku/yeyag)
 
-[SKKU SSE Reservation service (Backend)](https://github.com/sseits-skku/yeyag)
+[SKKU SSE Reservation service (Backend)](https://github.com/sseits-skku/yeyag-backend)
 
 [SKKU SSE Workstation Dashboard (Frontend)](https://github.com/sseits-skku/dashboard)
